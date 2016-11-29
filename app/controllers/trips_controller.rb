@@ -1,10 +1,11 @@
 class TripsController < ApplicationController
+  # before_action :authenticate_request
   before_action :set_trip, only: [:show, :update, :destroy]
 
   # GET /trips
   def index
     @trips = Trip.all
-
+    # binding.pry
     render json: @trips
   end
 

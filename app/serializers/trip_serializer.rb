@@ -10,5 +10,6 @@
 #  updated_at  :datetime         not null
 #
 
-class Trip < ApplicationRecord
+class TripSerializer < ActiveModel::Serializer
+  attributes :id, :name, :description
 end

@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :authenticate_request, only: [:show]
 
   # create new user
   def create
@@ -7,6 +8,14 @@ class UsersController < ApplicationController
       render json: @user, status: :created
     else
       render json: @user.errors, status: :unprocessable_entity
+    end
+  end
+
+  def show 
+    if current_user
+      render json: {user: current_user}, status: :ok
+    else
+      render json: {message: "User not present"}, status: :not_found
     end
   end
 

@@ -6,4 +6,5 @@ Rails.application.routes.draw do
 
   post 'authenticate', to: 'authentication#authenticate'
   post 'users/create', to: 'users#create'
+  post 'users/show', to: 'users#show'
 end

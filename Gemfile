@@ -17,6 +17,7 @@ gem 'jwt'
 gem 'simple_command'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'annotate'
+gem 'rack-cors', :require => 'rack/cors'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

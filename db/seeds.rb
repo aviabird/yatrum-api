@@ -5,10 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
+Trip.destroy_all
 User.destroy_all
 u = User.create(name: 'Jack', email: 'jack@test.com', password: '123456789', password_confirmation: '123456789')
-u.trips.destroy_all
 # trip = u.trips.new(
 #   cities_attributes: [{
 #     name: 'Pune',
@@ -32,14 +31,13 @@ u.trips.destroy_all
 #     }]
 #   }]
 # )
-
-trip = u.trips.create!(name: 'Pune trip', description: 'Was mostly in summer')
-city = trip.cities.create!(name: 'Pune', country: 'India')
-place1 = city.places.create!(name: 'Agakhan Palace', description: 'A very nice place', review: 'A good review')
-place2 = city.places.create!(name: 'Agakhan Palace', description: 'A very nice place', review: 'A good review')
-place1.pictures.create!(url: 'http://placehold.it/200x200', description: 'just a pic')
-place2.pictures.create!(url: 'http://placehold.it/200x200', description: 'just a pic')
-
-
+(1..10).each do |count|
+  trip = u.trips.create!(name: "Pune trip #{count}", description: "Was mostly in summer #{count}")
+  city = trip.cities.create!(name: "Pune #{count}", country: 'India')
+  place1 = city.places.create!(name: "Agakhan Palace #{count}", description: "A very nice place #{count}", review: 'A good review')
+  place2 = city.places.create!(name: "Mulshi Dam #{count}", description: "A very nice place #{count}", review: 'A good review')
+  place1.pictures.create!(url: 'https://unsplash.it/300/300/?random', description: 'just a pic')
+  place2.pictures.create!(url: 'https://unsplash.it/300/300/?random', description: 'just a pic')
+end
 
 

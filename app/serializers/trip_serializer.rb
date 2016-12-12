@@ -12,9 +12,12 @@
 #
 
 class TripSerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :created_at, :updated_at
+  attributes :id, :name, :description, :created_at, :updated_at, :user_id, :traveller_name
 
   has_many :cities
-  has_one :user
+
+  def traveller_name
+    User.find(object.user_id).name
+  end
 
 end

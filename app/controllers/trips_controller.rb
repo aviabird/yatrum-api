@@ -41,7 +41,7 @@ class TripsController < ApplicationController
   def get_user_trips
     user = User.find(params[:user_id])
     trips = user.trips
-    render json: trips  
+    render json: trips
   end
 
 

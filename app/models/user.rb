@@ -14,4 +14,10 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :trips
+
+
+  def full_name
+    name
+  end
+
 end

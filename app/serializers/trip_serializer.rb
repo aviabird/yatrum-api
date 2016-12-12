@@ -17,7 +17,7 @@ class TripSerializer < ActiveModel::Serializer
   has_many :cities
 
   def traveller_name
-    User.find(object.user_id).name
+    object.user.full_name
   end
 
 end

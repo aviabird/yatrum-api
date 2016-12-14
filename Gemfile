@@ -18,6 +18,7 @@ gem 'simple_command'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'annotate'
 gem 'rack-cors', :require => 'rack/cors'
+gem 'httpclient', '~> 2.8', '>= 2.8.3'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

@@ -12,7 +12,12 @@
 #
 
 class TripSerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :created_at, :updated_at
+  attributes :id, :name, :description, :created_at, :updated_at, :user_id, :traveller_name
 
   has_many :cities
+
+  def traveller_name
+    object.user.full_name
+  end
+
 end

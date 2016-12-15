@@ -8,4 +8,9 @@ Rails.application.routes.draw do
   post 'authenticate', to: 'authentication#authenticate'
   post 'users/create', to: 'users#create'
   post 'users/show', to: 'users#show'
+
+# instagram related routes
+  get 'get_user_instagram_media', to: 'instagram#get_user_instagram_media'
+  post 'exchange_code_with_token', to: 'instagram#exchange_code_with_token'
+
 end

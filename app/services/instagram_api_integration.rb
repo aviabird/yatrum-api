@@ -9,7 +9,7 @@ class InstagramApiIntegration
       'client_id': "865ffa528b874fc3b755ee13b9a79037",
       'client_secret': "72e404fed36d4d779a0fad1411e9e486",
       'grant_type': 'authorization_code',
-      'redirect_uri': "http://localhost:4200",
+      'redirect_uri': "http://localhost:4200/instagram_authentication_callback_url",
       'code': code
     }
   end
@@ -50,6 +50,7 @@ class InstagramApiIntegration
     response = @client.post("https://api.instagram.com/oauth/access_token", access_token_params(code))
     data = JSON.parse(response.body)
     access_token = data["access_token"]
+    # binding.pry
     if(access_token)
       set_user_instagram_profile(data, access_token)
       "success"  

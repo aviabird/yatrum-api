@@ -21,7 +21,8 @@ gem 'rack-cors', :require => 'rack/cors'
 gem 'httpclient', '~> 2.8', '>= 2.8.3'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
+# Load environment variables from .env into ENV
+gem 'dotenv-rails'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
@@ -36,8 +37,6 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  # Load environment variables from .env into ENV
-  gem 'dotenv-rails'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

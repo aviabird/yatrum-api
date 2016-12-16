@@ -13,4 +13,10 @@ class InstagramController < ApplicationController
     render json: { instagram_media: media }
   end
 
+  def check_user_is_instagram_authenticated
+    insta = InstagramApiIntegration.new(current_user)
+    token_status = insta.is_access_token_valid?
+    render json: { instagram_authenticated: token_status }
+  end
+
 end

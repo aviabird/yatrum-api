@@ -69,4 +69,13 @@ class InstagramApiIntegration
                             ) 
   end
 
+# check if the access_token which is saved in the user database, is valid or not
+# so we are hitting instagram endpoint with the current access token and checking
+# for the code status 200.
+  def is_access_token_valid?
+    response = @client.get("https://api.instagram.com/v1/users/self", access_token: get_user_access_token )
+    code_status = JSON.parse(response.body)["meta"]["code"]
+    code_status == 200 ? true : false
+  end
+
 end    

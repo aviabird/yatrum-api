@@ -2,6 +2,7 @@ class InstagramApiIntegration
   def initialize(user)
     @client = HTTPClient.new
     @user = user
+    @base_url = "https://api.instagram.com"
   end
 
   def access_token_params(code)
@@ -24,7 +25,7 @@ class InstagramApiIntegration
 # Get the most recent media published by the owner of the access_token.
 # for more information, visit https://www.instagram.com/developer/endpoints/users/
   def get_user_recent_media
-    response = @client.get("https://api.instagram.com/v1/users/self/media/recent", access_token: get_user_access_token)
+    response = @client.get("#{@base_url}/v1/users/self/media/recent", access_token: get_user_access_token)
     medias = JSON.parse(response.body)    
     if(medias["meta"]["code"] == 200)
       media_url = []
@@ -39,7 +40,7 @@ class InstagramApiIntegration
 # Gives Information about the owner of the access token
 # for more information, visit https://www.instagram.com/developer/endpoints/users/
   def get_user_instagram_profile
-    response = @client.get("https://api.instagram.com/v1/users/self", access_token: get_user_access_token)
+    response = @client.get("#{@base_url}/v1/users/self", access_token: get_user_access_token)
     user_profile = JSON.parse(response.body)
   end
 
@@ -47,7 +48,7 @@ class InstagramApiIntegration
 # Exchange the code with the user access token 
 # for more information, visit https://www.instagram.com/developer/authentication/
   def exchange_code_with_access_token(code)
-    response = @client.post("https://api.instagram.com/oauth/access_token", access_token_params(code))
+    response = @client.post("#{@base_url}/oauth/access_token", access_token_params(code))
     data = JSON.parse(response.body)
     access_token = data["access_token"]
     # binding.pry
@@ -73,7 +74,7 @@ class InstagramApiIntegration
 # so we are hitting instagram endpoint with the current access token and checking
 # for the code status 200.
   def is_access_token_valid?
-    response = @client.get("https://api.instagram.com/v1/users/self", access_token: get_user_access_token )
+    response = @client.get("#{@base_url}/v1/users/self", access_token: get_user_access_token )
     code_status = JSON.parse(response.body)["meta"]["code"]
     code_status == 200 ? true : false
   end

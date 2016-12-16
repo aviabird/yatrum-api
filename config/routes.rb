@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   post 'users/show', to: 'users#show'
 
 # instagram related routes
+  get 'is_user_instagram_authenticated', to: 'instagram#check_user_is_instagram_authenticated'
   get 'get_user_instagram_media', to: 'instagram#get_user_instagram_media'
   post 'exchange_code_with_token', to: 'instagram#exchange_code_with_token'
 

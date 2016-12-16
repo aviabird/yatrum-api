@@ -38,6 +38,13 @@ class TripsController < ApplicationController
     @trip.destroy
   end
 
+  def get_user_trips
+    user = User.find(params[:user_id])
+    trips = user.trips
+    render json: trips
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_trip

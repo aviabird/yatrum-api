@@ -6,10 +6,10 @@ class InstagramApiIntegration
 
   def access_token_params(code)
     {
-      'client_id': "865ffa528b874fc3b755ee13b9a79037",
-      'client_secret': "72e404fed36d4d779a0fad1411e9e486",
+      'client_id': ENV['CLIENT_ID'],
+      'client_secret': ENV['CLIENT_SECRET'],
       'grant_type': 'authorization_code',
-      'redirect_uri': "http://localhost:4200/instagram_authentication_callback_url",
+      'redirect_uri': ENV['REDIRECT_URI'],
       'code': code
     }
   end

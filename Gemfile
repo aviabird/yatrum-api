@@ -18,9 +18,11 @@ gem 'simple_command'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'annotate'
 gem 'rack-cors', :require => 'rack/cors'
+gem 'httpclient', '~> 2.8', '>= 2.8.3'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
+# Load environment variables from .env into ENV
+gem 'dotenv-rails'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 

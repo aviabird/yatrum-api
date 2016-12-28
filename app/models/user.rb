@@ -11,6 +11,8 @@
 #  instagram_access_token    :string
 #  instagram_user_name       :string
 #  instagram_profile_picture :string
+#  profile_picture_url       :string
+#  cover_photo_url           :string
 #
 
 class User < ApplicationRecord

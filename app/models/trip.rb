@@ -13,7 +13,7 @@
 
 class Trip < ApplicationRecord
   has_many :cities
-  belongs_to :user
+  belongs_to :user, required: false # http://stackoverflow.com/a/39584972/1930053
 
-  # accepts_nested_attributes_for :cities
+  accepts_nested_attributes_for :cities
 end

@@ -1,5 +1,5 @@
 class TripsController < ApplicationController
-  before_action :authenticate_request, only: [:create, :update, :destroy]
+  # before_action :authenticate_request, only: [:create, :update, :destroy]
   before_action :set_trip, only: [:show, :update, :destroy]
 
   # GET /trips
@@ -16,7 +16,6 @@ class TripsController < ApplicationController
   # POST /trips
   def create
     @trip = Trip.new(trip_params)
-
     if @trip.save
       render json: @trip, status: :created, location: @trip
     else
@@ -53,6 +52,10 @@ class TripsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def trip_params
-      params.require(:trip).permit(:name, :description, :status)
+      params.require(:trip).permit(:id, :name, :description, :status, :start_date, :end_date,
+        cities_attributes: [:id, :name, :country, 
+          places_attributes: [:id, :name, :description, :review]
+        ]
+      )
     end
 end

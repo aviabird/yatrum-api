@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_request, only: [:show]
+  before_action :authenticate_request, only: [:show, :update_user_profile_media]
 
   # create new user
   def create
@@ -17,6 +17,11 @@ class UsersController < ApplicationController
     else
       render json: {message: "User not present"}, status: :not_found
     end
+  end
+
+  def update_user_profile_media 
+    user = current_user
+    user.update_attribue(:profile_pic, {url: params["url"], public_id: params["public_id"] })
   end
 
   private

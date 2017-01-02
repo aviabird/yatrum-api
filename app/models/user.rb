@@ -11,12 +11,14 @@
 #  instagram_access_token    :string
 #  instagram_user_name       :string
 #  instagram_profile_picture :string
-#  profile_picture_url       :string
-#  cover_photo_url           :string
+#  profile_pic               :text
+#  cover_photo               :text
 #
 
 class User < ApplicationRecord
   has_secure_password
+  serialize :profile_pic 
+  serialize :cover_photo
 
   has_many :trips
 

@@ -12,12 +12,12 @@
 #
 
 class TripSerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :created_at, :updated_at, :user_id, :traveller_name
+  attributes :id, :name, :description, :created_at, :updated_at, :user_id, :profile_pic_url
 
   has_many :cities
 
-  def traveller_name
-    object.user.full_name rescue 'Jack Sparrow'
+  def profile_pic_url
+    object.user.profile_pic? ? object.user.profile_pic[:url] : nil
   end
 
 end

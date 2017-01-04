@@ -1,5 +1,5 @@
 class TripsController < ApplicationController
-  # before_action :authenticate_request, only: [:create, :update, :destroy]
+  before_action :authenticate_request, only: [:create, :update, :destroy]
   before_action :set_trip, only: [:show, :update, :destroy]
 
   # GET /trips
@@ -15,7 +15,7 @@ class TripsController < ApplicationController
 
   # POST /trips
   def create
-    @trip = Trip.new(trip_params)
+    @trip = current_user.trips.new(trip_params)
     if @trip.save
       render json: @trip, status: :created, location: @trip
     else

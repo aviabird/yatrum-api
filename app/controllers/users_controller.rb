@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_request, only: [:show]
+  before_action :authenticate_request, only: [:show, :update_user_profile_media]
 
   # create new user
   def create
@@ -19,7 +19,25 @@ class UsersController < ApplicationController
     end
   end
 
+  def update_user_profile_media 
+    user = current_user
+    status = if params['mediaType'].in? %w(profile_pic cover_photo)
+      user[params['mediaType']] = {url: params["url"], public_id: params["public_id"] }
+      user.save
+      true
+    else
+      false
+    end
+    render json: {user: current_user, status: status}
+  end
+
   private
+
+  def media_type
+    
+    params['mediaType'] == 'profile_pic' ? profile_pic : 'cover_photo' 
+  end
+
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)

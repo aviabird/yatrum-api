@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161228061222) do
+ActiveRecord::Schema.define(version: 20161229080907) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,8 +58,8 @@ ActiveRecord::Schema.define(version: 20161228061222) do
     t.string   "instagram_access_token"
     t.string   "instagram_user_name"
     t.string   "instagram_profile_picture"
-    t.string   "profile_picture_url"
-    t.string   "cover_photo_url"
+    t.text     "profile_pic"
+    t.text     "cover_photo"
   end
 
 end

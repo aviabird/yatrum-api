@@ -4,7 +4,7 @@ class TripsController < ApplicationController
 
   # GET /trips
   def index
-    @trips = Trip.all
+    @trips = Trip.includes(:user, cities: [places: :pictures])
     render json: @trips
   end
 
@@ -36,10 +36,10 @@ class TripsController < ApplicationController
   def destroy
     @trip.destroy
   end
-
+  
   def get_user_trips
     user = User.find(params[:user_id])
-    trips = user.trips
+    trips = user.trips.includes(cities: [places: :pictures])
     render json: trips
   end
 

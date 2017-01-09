@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post 'authenticate', to: 'authentication#authenticate'
   post 'users/create', to: 'users#create'
   post 'users/show', to: 'users#show'
+  post 'users/:id', to: 'users#get_user_by_id'
   post 'update_user_profile_media', to: 'users#update_user_profile_media'
 
 # instagram related routes

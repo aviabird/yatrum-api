@@ -19,6 +19,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def get_user_by_id
+    id = params[:user_id]
+    user = User.find(id)
+    if user 
+      render json: {user: user}, status: :ok
+    else 
+      render json: {message: 'User not found'}, status: :not_found
+    end
+  end
+
   def update_user_profile_media 
     user = current_user
     status = if params['mediaType'].in? %w(profile_pic cover_photo)

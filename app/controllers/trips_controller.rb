@@ -5,7 +5,7 @@ class TripsController < ApplicationController
   # GET /trips
   def index
     @trips = Trip.includes(:user, cities: [places: :pictures])
-    render json: @trips
+    render json: Oj.dump(@trips.as_json)
   end
 
   # GET /trips/1
@@ -17,18 +17,18 @@ class TripsController < ApplicationController
   def create
     @trip = current_user.trips.new(trip_params)
     if @trip.save
-      render json: @trip, status: :created, location: @trip
+      render json: Oj.dump(@trip.as_json), status: :created, location: @trip
     else
-      render json: @trip.errors, status: :unprocessable_entity
+      render json: Oj.dump(@trip.errors.as_json), status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /trips/1
   def update
     if @trip.update(trip_params)
-      render json: @trip
+      render json: Oj.dump(@trip.as_json)
     else
-      render json: @trip.errors, status: :unprocessable_entity
+      render json: Oj.dump(@trip.errors), status: :unprocessable_entity
     end
   end
 
@@ -40,7 +40,7 @@ class TripsController < ApplicationController
   def get_user_trips
     user = User.find(params[:user_id])
     trips = user.trips.includes(cities: [places: :pictures])
-    render json: trips
+    render json: Oj.dump(trips.as_json)
   end
 
 

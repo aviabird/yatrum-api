@@ -81,6 +81,7 @@ GEM
     nio4r (1.2.1)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
+    oj (2.18.0)
     pg (0.18.4)
     pry (0.10.4)
       coderay (~> 1.1.0)
@@ -152,6 +153,7 @@ DEPENDENCIES
   httpclient (~> 2.8, >= 2.8.3)
   jwt
   listen (~> 3.0.5)
+  oj
   pg
   pry
   puma (~> 3.0)
@@ -163,4 +165,4 @@ DEPENDENCIES
   tzinfo-data
 
 BUNDLED WITH
-   1.13.6
+   1.13.7

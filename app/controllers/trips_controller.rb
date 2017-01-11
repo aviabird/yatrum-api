@@ -5,7 +5,7 @@ class TripsController < ApplicationController
   # GET /trips
   def index
     @trips = Trip.includes(:user, cities: [places: :pictures])
-    render json: Oj.dump(@trips.as_json)
+    render json: @trips
   end
 
   # GET /trips/1
@@ -17,18 +17,18 @@ class TripsController < ApplicationController
   def create
     @trip = current_user.trips.new(trip_params)
     if @trip.save
-      render json: Oj.dump(@trip.as_json), status: :created, location: @trip
+      render json: @trip, status: :created, location: @trip
     else
-      render json: Oj.dump(@trip.errors.as_json), status: :unprocessable_entity
+      render json: @trip.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /trips/1
   def update
     if @trip.update(trip_params)
-      render json: Oj.dump(@trip.as_json)
+      render json: @trip
     else
-      render json: Oj.dump(@trip.errors), status: :unprocessable_entity
+      render json: @trip.errors, status: :unprocessable_entity
     end
   end
 
@@ -37,25 +37,39 @@ class TripsController < ApplicationController
     @trip.destroy
   end
   
+  # GET /users/:user_id/trips
   def get_user_trips
     user = User.find(params[:user_id])
     trips = user.trips.includes(cities: [places: :pictures])
-    render json: Oj.dump(trips.as_json)
+    render json: trips
   end
 
-
+  # GET /trips/search
+  def search
+    @trips =
+      Trip
+      .includes(:user, cities: [ places: :pictures ])
+      .tagged_with(params[:keywords].try(:split, ','), any: true)
+      .order(created_at: :desc)
+      .offset(params[:offset])
+      .limit(20)
+      
+    render json: @trips
+  end  
+  
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_trip
-      @trip = Trip.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def trip_params
-      params.require(:trip).permit(:id, :name, :description, :status, :start_date, :end_date,
-        cities_attributes: [:id, :name, :country, 
-          places_attributes: [:id, :name, :description, :review]
-        ]
-      )
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_trip
+    @trip = Trip.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def trip_params
+    params.require(:trip).permit(:id, :name, :description, :status, :start_date, :end_date,
+      cities_attributes: [:id, :name, :country, 
+        places_attributes: [:id, :name, :description, :review]
+      ]
+    )
+  end
 end

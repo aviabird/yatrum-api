@@ -42,4 +42,5 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'oj'
+gem 'oj', '~> 2.18.0'
+gem 'acts-as-taggable-on', '~> 4.0'

@@ -12,6 +12,8 @@
 #
 
 class Trip < ApplicationRecord
+  acts_as_taggable
+
   has_many :cities
   belongs_to :user, required: false # http://stackoverflow.com/a/39584972/1930053
 

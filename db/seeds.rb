@@ -5,9 +5,12 @@ Place.destroy_all
 Picture.destroy_all
 
 user = User.create!(name: 'Jack', email: 'jack@test.com', password: '12345', password_confirmation: '12345')
+tags = %w(river rafting india america mountains treking cycling swiming camping religious nature)
 
 (1..10).each do |count|
   trip = user.trips.create!(name: "Pune trip #{count}", description: "Was mostly in summer #{count}")
+  trip.tag_list.add(*tags.sample(rand(10)))
+  trip.save!
   city = trip.cities.create!(name: "Pune #{count}", country: 'India')
   place = city.places.create!(name: "Agakhan Palace #{count}", description: "A very nice place #{count}", review: 'A good review')
   place.pictures.create!(url: 'https://unsplash.it/300/300/?random', description: 'just a pic')

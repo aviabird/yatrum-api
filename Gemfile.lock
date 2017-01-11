@@ -84,6 +84,7 @@ GEM
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
     oj (2.18.0)
+    oj_mimic_json (1.0.1)
     pg (0.18.4)
     pry (0.10.4)
       coderay (~> 1.1.0)
@@ -157,6 +158,7 @@ DEPENDENCIES
   jwt
   listen (~> 3.0.5)
   oj (~> 2.18.0)
+  oj_mimic_json
   pg
   pry
   puma (~> 3.0)

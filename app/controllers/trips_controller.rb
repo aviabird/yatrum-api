@@ -4,7 +4,12 @@ class TripsController < ApplicationController
 
   # GET /trips
   def index
-    @trips = Trip.includes(:user, cities: [places: :pictures])
+    @trips =
+      Trip
+      .includes(:user, cities: [places: :pictures])
+      .limit(10)
+      .offset(params[:page] || 0)
+
     render json: @trips
   end
 
@@ -51,7 +56,7 @@ class TripsController < ApplicationController
       .includes(:user, cities: [ places: :pictures ])
       .tagged_with(params[:keywords].try(:split, ','), any: true)
       .order(created_at: :desc)
-      .offset(params[:offset])
+      .offset(params[:page])
       .limit(20)
       
     render json: @trips

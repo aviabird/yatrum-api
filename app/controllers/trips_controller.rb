@@ -54,7 +54,7 @@ class TripsController < ApplicationController
     @trips =
       Trip
       .includes(:user, cities: [ places: :pictures ])
-      .tagged_with(params[:keywords].try(:split, ','), any: true)
+      .tagged_with(params[:keywords].try(:split), any: true)
       .order(created_at: :desc)
       .offset(params[:page])
       .limit(20)

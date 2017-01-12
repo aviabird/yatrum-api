@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   post 'users/show', to: 'users#show'
   post 'users/:id', to: 'users#get_user_by_id'
   post 'update_user_profile_media', to: 'users#update_user_profile_media'
+  post 'add_to_user_following_list', to: 'users#add_traveller_to_user_following_list'
+  post 'user_followers', to: 'users#get_user_followers'
+  post 'user_following', to: 'users#get_user_following'
 
 # instagram related routes
   get 'is_user_instagram_authenticated', to: 'instagram#check_user_is_instagram_authenticated'

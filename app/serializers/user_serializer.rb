@@ -17,4 +17,14 @@
 
 class UserSerializer < ActiveModel::Serializer
   attributes :id, :name, :email
+
+  def total_followers
+    object.total_followers
+  end
+
+  def total_following
+    object.total_following
+  end
+
 end
+

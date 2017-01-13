@@ -4,8 +4,26 @@ class TripsController < ApplicationController
 
   # GET /trips
   def index
-    @trips = Trip.includes(:user, cities: [places: :pictures])
-    render json: @trips
+    @trips =
+      Trip
+      .includes(:user, cities: [places: :pictures])
+      .limit(10)
+      .offset(params[:page] || 0)
+
+    render json: Oj.dump(
+      @trips.as_json(
+        include: [
+          :user,
+          cities: {
+            include: [
+              places: {
+                include: :pictures
+              }
+            ]
+          }
+        ]
+      )
+    )
   end
 
   # GET /trips/1
@@ -37,25 +55,72 @@ class TripsController < ApplicationController
     @trip.destroy
   end
   
+  # GET /users/:user_id/trips
   def get_user_trips
     user = User.find(params[:user_id])
-    trips = user.trips.includes(cities: [places: :pictures])
-    render json: trips
-  end
+    trips =
+      user
+      .trips
+      .includes(cities: [places: :pictures])
+      .order(created_at: :desc)
+      .offset(params[:page])
+      .limit(10)
 
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_trip
-      @trip = Trip.find(params[:id])
-    end
-
-    # Only allow a trusted parameter "white list" through.
-    def trip_params
-      params.require(:trip).permit(:id, :name, :description, :status, :start_date, :end_date,
-        cities_attributes: [:id, :name, :country, 
-          places_attributes: [:id, :name, :description, :review]
+    render json: Oj.dump(
+      trips.as_json(
+        include: [
+          :user,
+          cities: {
+            include: [
+              places: {
+                include: :pictures
+              }
+            ]
+          }
         ]
       )
-    end
+    )
+  end
+
+  # GET /trips/search
+  def search
+    @trips =
+      Trip
+      .includes(:user, cities: [ places: :pictures ])
+      .tagged_with(params[:keywords].try(:split), any: true)
+      .order(created_at: :desc)
+      .offset(params[:page])
+      .limit(10)
+      
+    render json: Oj.dump(
+      @trips.as_json(
+        include: [
+          :user,
+          cities: {
+            include: [
+              places: {
+                include: :pictures
+              }
+            ]
+          }
+        ]
+      )
+    )
+  end  
+  
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_trip
+    @trip = Trip.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def trip_params
+    params.require(:trip).permit(:id, :name, :description, :status, :start_date, :end_date,
+      cities_attributes: [:id, :name, :country, 
+        places_attributes: [:id, :name, :description, :review]
+      ]
+    )
+  end
 end

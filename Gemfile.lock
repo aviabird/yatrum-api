@@ -42,6 +42,9 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    acts-as-taggable-on (4.0.0)
+      activerecord (>= 4.0)
+    acts_as_votable (0.10.0)
     annotate (2.7.1)
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 12.0)
@@ -81,6 +84,8 @@ GEM
     nio4r (1.2.1)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
+    oj (2.18.0)
+    oj_mimic_json (1.0.1)
     pg (0.18.4)
     pry (0.10.4)
       coderay (~> 1.1.0)
@@ -145,6 +150,8 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (~> 0.10.0)
+  acts-as-taggable-on (~> 4.0)
+  acts_as_votable (~> 0.10.0)
   annotate
   bcrypt (~> 3.1.7)
   byebug
@@ -152,6 +159,8 @@ DEPENDENCIES
   httpclient (~> 2.8, >= 2.8.3)
   jwt
   listen (~> 3.0.5)
+  oj (~> 2.18.0)
+  oj_mimic_json
   pg
   pry
   puma (~> 3.0)
@@ -163,4 +172,4 @@ DEPENDENCIES
   tzinfo-data
 
 BUNDLED WITH
-   1.13.6
+   1.13.7

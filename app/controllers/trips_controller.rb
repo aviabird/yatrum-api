@@ -9,6 +9,8 @@ class TripsController < ApplicationController
       .includes(:user, cities: [places: :pictures])
       .limit(10)
       .offset(params[:page] || 0)
+    
+    sleep 2
 
     render json: Oj.dump(
       @trips.as_json(
@@ -65,6 +67,8 @@ class TripsController < ApplicationController
       .order(created_at: :desc)
       .offset(params[:page])
       .limit(10)
+    
+    sleep 2
 
     render json: Oj.dump(
       trips.as_json(
@@ -91,6 +95,8 @@ class TripsController < ApplicationController
       .order(created_at: :desc)
       .offset(params[:page])
       .limit(10)
+    
+    sleep 2
       
     render json: Oj.dump(
       @trips.as_json(

@@ -47,7 +47,7 @@ class TripsController < ApplicationController
   # GET /users/:user_id/trips
   def get_user_trips
     user = User.find(params[:user_id])
-    trips = user.trips.includes(cities: [places: :pictures])
+    trips = user.trips.includes(:user, cities: [places: :pictures])
     render json: trips
   end
 

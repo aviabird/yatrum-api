@@ -16,5 +16,6 @@
 #
 
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :name, :email
+  attributes :id, :name, :email, :profile_pic, :cover_photo, :instagram_profile_picture,
+             :instagram_user_name
 end

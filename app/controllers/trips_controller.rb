@@ -10,8 +10,6 @@ class TripsController < ApplicationController
       .limit(10)
       .offset(params[:page] || 0)
     
-    sleep 2
-
     render json: Oj.dump(
       @trips.as_json(
         include: [
@@ -68,8 +66,6 @@ class TripsController < ApplicationController
       .offset(params[:page])
       .limit(10)
     
-    sleep 2
-
     render json: Oj.dump(
       trips.as_json(
         include: [
@@ -96,8 +92,6 @@ class TripsController < ApplicationController
       .offset(params[:page])
       .limit(10)
     
-    sleep 2
-      
     render json: Oj.dump(
       @trips.as_json(
         include: [

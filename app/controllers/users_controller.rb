@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 
   def show 
     if current_user
-      render json: {user: current_user}, status: :ok
+      render json: current_user
     else
       render json: {message: "User not present"}, status: :not_found
     end
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     id = params[:user_id]
     user = User.find(id)
     if user 
-      render json: {user: user}, status: :ok
+      render json: user
     else 
       render json: {message: 'User not found'}, status: :not_found
     end
@@ -38,7 +38,7 @@ class UsersController < ApplicationController
     else
       false
     end
-    render json: {user: current_user, status: status}
+    render json: current_user
   end
 
   def add_traveller_to_user_following_list

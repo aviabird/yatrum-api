@@ -12,12 +12,8 @@
 #
 
 class TripSerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :created_at, :updated_at, :user_id, :profile_pic_url
+  attributes :id, :name, :description, :created_at, :updated_at
 
   has_many :cities
-
-  def profile_pic_url
-    object.user.profile_pic? ? object.user.profile_pic[:url] : nil
-  end
 
 end

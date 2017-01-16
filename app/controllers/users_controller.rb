@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     id = params[:user_id]
     user = User.find(id)
     if user 
-      render json: {user: user}, status: :ok
+      render json: user
     else 
       render json: {message: 'User not found'}, status: :not_found
     end

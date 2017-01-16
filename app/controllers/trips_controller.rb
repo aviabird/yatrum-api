@@ -11,20 +11,7 @@ class TripsController < ApplicationController
       .limit(10)
       .offset(params[:page] || 0)
 
-    render json: Oj.dump(
-      @trips.as_json(
-        include: [
-          :user,
-          cities: {
-            include: [
-              places: {
-                include: :pictures
-              }
-            ]
-          }
-        ]
-      )
-    )
+    render json: @trips
   end
 
   # GET /trips/1
@@ -68,20 +55,7 @@ class TripsController < ApplicationController
       .offset(params[:page])
       .limit(10)
 
-    render json: Oj.dump(
-      trips.as_json(
-        include: [
-          :user,
-          cities: {
-            include: [
-              places: {
-                include: :pictures
-              }
-            ]
-          }
-        ]
-      )
-    )
+    render json: trips
   end
 
   # GET /trips/search
@@ -93,23 +67,10 @@ class TripsController < ApplicationController
       .order(created_at: :desc)
       .offset(params[:page])
       .limit(10)
-
-    render json: Oj.dump(
-      @trips.as_json(
-        include: [
-          :user,
-          cities: {
-            include: [
-              places: {
-                include: :pictures
-              }
-            ]
-          }
-        ]
-      )
-    )
-  end
-
+    
+    render json: @trips
+  end  
+  
   private
 
   # Use callbacks to share common setup or constraints between actions.

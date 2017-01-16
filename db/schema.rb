@@ -83,6 +83,8 @@ ActiveRecord::Schema.define(version: 20170110144353) do
     t.string   "instagram_access_token"
     t.string   "instagram_user_name"
     t.string   "instagram_profile_picture"
+    t.string   "profile_picture_url"
+    t.string   "cover_photo_url"
     t.text     "profile_pic"
     t.text     "cover_photo"
   end

@@ -42,4 +42,8 @@ class User < ApplicationRecord
     following.count
   end
 
+  def total_trips
+    trips.count
+  end
+
 end

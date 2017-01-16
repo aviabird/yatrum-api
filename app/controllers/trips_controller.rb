@@ -1,6 +1,7 @@
 class TripsController < ApplicationController
   before_action :authenticate_request, only: [:create, :update, :destroy]
   before_action :set_trip, only: [:show, :update, :destroy]
+  before_action :sanitise_params, only: [:create, :update]
 
   # GET /trips
   def index
@@ -9,23 +10,8 @@ class TripsController < ApplicationController
       .includes(:user, cities: [places: :pictures])
       .limit(10)
       .offset(params[:page] || 0)
-    
-    sleep 2
 
-    render json: Oj.dump(
-      @trips.as_json(
-        include: [
-          :user,
-          cities: {
-            include: [
-              places: {
-                include: :pictures
-              }
-            ]
-          }
-        ]
-      )
-    )
+    render json: @trips
   end
 
   # GET /trips/1
@@ -46,6 +32,7 @@ class TripsController < ApplicationController
   # PATCH/PUT /trips/1
   def update
     if @trip.update(trip_params)
+      # binding.pry
       render json: @trip
     else
       render json: @trip.errors, status: :unprocessable_entity
@@ -67,23 +54,8 @@ class TripsController < ApplicationController
       .order(created_at: :desc)
       .offset(params[:page])
       .limit(10)
-    
-    sleep 2
 
-    render json: Oj.dump(
-      trips.as_json(
-        include: [
-          :user,
-          cities: {
-            include: [
-              places: {
-                include: :pictures
-              }
-            ]
-          }
-        ]
-      )
-    )
+    render json: trips
   end
 
   # GET /trips/search
@@ -96,22 +68,7 @@ class TripsController < ApplicationController
       .offset(params[:page])
       .limit(10)
     
-    sleep 2
-      
-    render json: Oj.dump(
-      @trips.as_json(
-        include: [
-          :user,
-          cities: {
-            include: [
-              places: {
-                include: :pictures
-              }
-            ]
-          }
-        ]
-      )
-    )
+    render json: @trips
   end  
   
   private
@@ -123,10 +80,23 @@ class TripsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def trip_params
+
     params.require(:trip).permit(:id, :name, :description, :status, :start_date, :end_date,
       cities_attributes: [:id, :name, :country, 
         places_attributes: [:id, :name, :description, :review]
       ]
     )
+  end
+
+  def sanitise_params
+    params['trip']['cities_attributes'] = params['trip']['cities']
+    # params['trip'].delete('cities')
+    params['trip']["cities_attributes"].each do |city|
+      city['places_attributes'] = city['places']
+      # city.delete('places')
+      city.values_at('places_attributes').each do |place|
+        # Change for picture here
+      end
+    end
   end
 end

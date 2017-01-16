@@ -15,5 +15,6 @@ class TripSerializer < ActiveModel::Serializer
   attributes :id, :name, :description, :created_at, :updated_at
 
   has_many :cities
+  belongs_to :user
 
 end

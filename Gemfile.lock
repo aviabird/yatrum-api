@@ -44,6 +44,7 @@ GEM
       tzinfo (~> 1.1)
     acts-as-taggable-on (4.0.0)
       activerecord (>= 4.0)
+    acts_as_votable (0.10.0)
     annotate (2.7.1)
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 12.0)
@@ -150,6 +151,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.10.0)
   acts-as-taggable-on (~> 4.0)
+  acts_as_votable (~> 0.10.0)
   annotate
   bcrypt (~> 3.1.7)
   byebug

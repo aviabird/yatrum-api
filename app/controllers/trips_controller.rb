@@ -11,7 +11,20 @@ class TripsController < ApplicationController
       .limit(10)
       .offset(params[:page] || 0)
 
-    render json: @trips
+    render json: Oj.dump(
+      @trips.as_json(
+        include: [
+          :user,
+          cities: {
+            include: [
+              places: {
+                include: :pictures
+              }
+            ]
+          }
+        ]
+      )
+    )
   end
 
   # GET /trips/1
@@ -47,8 +60,28 @@ class TripsController < ApplicationController
   # GET /users/:user_id/trips
   def get_user_trips
     user = User.find(params[:user_id])
-    trips = user.trips.includes(:user, cities: [places: :pictures])
-    render json: trips
+    trips =
+      user
+      .trips
+      .includes(cities: [places: :pictures])
+      .order(created_at: :desc)
+      .offset(params[:page])
+      .limit(10)
+
+    render json: Oj.dump(
+      trips.as_json(
+        include: [
+          :user,
+          cities: {
+            include: [
+              places: {
+                include: :pictures
+              }
+            ]
+          }
+        ]
+      )
+    )
   end
 
   # GET /trips/search
@@ -59,11 +92,24 @@ class TripsController < ApplicationController
       .tagged_with(params[:keywords].try(:split), any: true)
       .order(created_at: :desc)
       .offset(params[:page])
-      .limit(20)
-      
-    render json: @trips
-  end  
-  
+      .limit(10)
+
+    render json: Oj.dump(
+      @trips.as_json(
+        include: [
+          :user,
+          cities: {
+            include: [
+              places: {
+                include: :pictures
+              }
+            ]
+          }
+        ]
+      )
+    )
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -73,7 +119,7 @@ class TripsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def trip_params
-    
+
     params.require(:trip).permit(:id, :name, :description, :status, :start_date, :end_date,
       cities_attributes: [:id, :name, :country, 
         places_attributes: [:id, :name, :description, :review]

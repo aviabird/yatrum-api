@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_request, only: [:show, :update_user_profile_media]
+  before_action :authenticate_request, only: [:show, :update_user_profile_media, :add_traveller_to_user_following_list]
 
   # create new user
   def create
@@ -41,10 +41,29 @@ class UsersController < ApplicationController
     render json: {user: current_user, status: status}
   end
 
+  def add_traveller_to_user_following_list
+    user = current_user
+    user.active_relationships.create(followed_id: params[:followed_id])
+    render json: {status: true}
+  end
+
+  def get_user_followers
+    id = params[:user_id]
+    user = User.find(id)
+    user_followers = user.followers
+    render json: {followers: user_followers}
+  end
+
+  def get_user_following
+    id = params[:user_id]
+    user = User.find(id)
+    user_following = user.following
+    render json: {following: user_following}
+  end
+
   private
 
   def media_type
-    
     params['mediaType'] == 'profile_pic' ? profile_pic : 'cover_photo' 
   end
 

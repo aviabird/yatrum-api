@@ -18,4 +18,13 @@
 class UserSerializer < ActiveModel::Serializer
   attributes :id, :name, :email, :profile_pic, :cover_photo, :instagram_profile_picture,
              :instagram_user_name
+
+  def total_followers
+    object.total_followers
+  end
+
+  def total_following
+    object.total_following
+  end
 end
+

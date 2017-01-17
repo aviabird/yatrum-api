@@ -1,5 +1,5 @@
 class TripsController < ApplicationController
-  before_action :authenticate_request, only: [:create, :update, :destroy]
+  before_action :authenticate_request, only: [:create, :update, :destroy, :like]
   before_action :set_trip, only: [:show, :update, :destroy, :like]
   before_action :sanitise_params, only: [:create, :update]
 
@@ -73,8 +73,8 @@ class TripsController < ApplicationController
 
   # POST /trips/like
   def like
-    user = User.find(params[:user_id])
-    @trip.liked_by user
+    @trip.toggle_like(current_user)
+    render json: @trip
   end
   
   private

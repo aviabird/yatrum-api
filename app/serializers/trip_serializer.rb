@@ -18,6 +18,7 @@ class TripSerializer < ActiveModel::Serializer
   belongs_to :user
 
   def is_liked_by_current_user
+  	return false unless User.current
     object.voted_on_by? User.current    
   end
 

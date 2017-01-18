@@ -18,7 +18,7 @@
 class UserSerializer < ActiveModel::Serializer
   attributes :id, :name, :email, :instagram_access_token, :instagram_profile_picture,
              :instagram_user_name, :profile_pic, :cover_photo, :total_followers,
-             :total_following, :total_trips
+             :total_following, :total_trips, :is_followed_by_current_user
 
   def total_followers
     object.total_followers
@@ -46,6 +46,16 @@ class UserSerializer < ActiveModel::Serializer
     else  
       { url: USER_CONSTANTS["default_cover_photo"], public_id: nil }
     end
+  end
+
+  def is_followed_by_current_user
+    current_user = User.current
+    # if(object.id == 1)
+    #   binding.pry
+    # end
+    return false unless current_user
+    return nil if current_user.id == object.id
+    current_user.following.pluck(:id).include?(object.id)
   end
 
 end

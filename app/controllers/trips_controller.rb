@@ -5,11 +5,13 @@ class TripsController < ApplicationController
 
   # GET /trips
   def index
+    page = params[:page].to_i
+    offset = (page - 1) * 6
     @trips =
       Trip
       .includes(:user, cities: [places: :pictures])
-      .limit(10)
-      .offset(params[:page] || 0)
+      .limit(6)
+      .offset(offset)
 
     render json: @trips
   end

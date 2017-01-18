@@ -6,8 +6,10 @@ class AuthenticationController < ApplicationController
 
     if command.success? 
       user = User.find_by_email(params[:email])
+      User.current = user
       render json: { auth_token: command.result, user: user }
-    else 
+    else
+      User.current = nil
       render json: { error: command.errors }, status: :unauthorized 
     end 
   end

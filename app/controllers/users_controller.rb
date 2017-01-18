@@ -51,14 +51,14 @@ class UsersController < ApplicationController
     id = params[:user_id]
     user = User.find(id)
     user_followers = user.followers
-    render json: {followers: user_followers}
+    render json: user_followers
   end
 
   def get_user_following
     id = params[:user_id]
     user = User.find(id)
     user_following = user.following
-    render json: {following: user_following}
+    render json: user_following
   end
 
   private

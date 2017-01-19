@@ -50,11 +50,10 @@ class UsersController < ApplicationController
   end
 
   def follow_trip_user
-    trip_id = params[:trip_id]
-    trip = Trip.find(trip_id)
-    trip_user_id = trip.user.id
-    current_user.toggle_follow(trip_user_id)
-    render json: trip
+    id = params[:followed_id]
+    current_user.toggle_follow(id)
+    followed_user = User.find(id)
+    render json: followed_user
   end
 
   def get_user_followers

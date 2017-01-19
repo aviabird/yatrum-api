@@ -46,6 +46,19 @@ class User < ApplicationRecord
     trips.count
   end
 
+  def is_following?(id)
+    following.pluck(:id).include?(id)
+  end
+
+  def toggle_follow(followed_id)
+    if is_following?(followed_id.to_i)
+      id = Relationship.find_by(follower_id: self.id, followed_id: followed_id).id
+      Relationship.delete(id)
+    else
+      active_relationships.create(followed_id: followed_id)
+    end
+  end
+
   def self.current=(user)
     Thread.current[:current_user] = user
   end

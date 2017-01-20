@@ -84,7 +84,7 @@ class TripsController < ApplicationController
     params.require(:trip).permit(:id, :name, :description, :status, :start_date, :end_date,
       cities_attributes: [:id, :name, :country, 
         places_attributes: [:id, :name, :description, :review,
-          pictures_attributes: [:id, :description, :url]
+          pictures_attributes: [:id, :description, :url, :public_id]
         ]
       ]
     )

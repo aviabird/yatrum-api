@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::API
   include Authenticable
-  
+  include Common  
   # before_action :authenticate_request 
   # This authentication should be at the controller level
 

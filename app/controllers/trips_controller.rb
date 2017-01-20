@@ -98,7 +98,9 @@ class TripsController < ApplicationController
 
     params.require(:trip).permit(:id, :name, :description, :status, :start_date, :end_date,
       cities_attributes: [:id, :name, :country, 
-        places_attributes: [:id, :name, :description, :review]
+        places_attributes: [:id, :name, :description, :review,
+          pictures_attributes: [:id, :description, :url, :public_id]
+        ]
       ]
     )
   end
@@ -109,8 +111,9 @@ class TripsController < ApplicationController
     params['trip']["cities_attributes"].each do |city|
       city['places_attributes'] = city['places']
       # city.delete('places')
-      city.values_at('places_attributes').each do |place|
+      city['places_attributes'].each do |place|
         # Change for picture here
+        place['pictures_attributes'] = place['pictures']
       end
     end
   end

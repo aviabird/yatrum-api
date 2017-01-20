@@ -11,5 +11,5 @@
 #
 
 class PictureSerializer < ActiveModel::Serializer
-  attributes :id, :url, :description, :created_at, :updated_at
+  attributes :id, :url, :description, :public_id, :created_at, :updated_at
 end

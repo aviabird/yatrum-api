@@ -12,7 +12,7 @@
 #
 
 class TripSerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :created_at, :updated_at, :user_id, :is_liked_by_current_user
+  attributes :id, :name, :description, :created_at, :updated_at, :user_id, :is_liked_by_current_user, :trip_likes_count
 
   has_many :cities
   belongs_to :user
@@ -20,6 +20,10 @@ class TripSerializer < ActiveModel::Serializer
   def is_liked_by_current_user
   	return false unless User.current
     object.voted_on_by? User.current    
+  end
+
+  def trip_likes_count
+    object.get_likes.count
   end
 
 end

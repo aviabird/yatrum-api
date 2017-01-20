@@ -5,13 +5,16 @@ class TripsController < ApplicationController
 
   # GET /trips
   def index
+    page = params[:page].to_i
+    offset = (page - 1) * 6
     @trips =
       Trip
       .includes(:user, cities: [places: :pictures])
-      .limit(10)
-      .offset(params[:page] || 0)
+      .limit(6)
+      .offset(offset)
 
-    render json: @trips
+    total_pages = find_total_pages
+    render json: {trips: cusotm_serializer(@trips, TripSerializer), total_pages: total_pages}
   end
 
   # GET /trips/1
@@ -79,6 +82,12 @@ class TripsController < ApplicationController
   
   private
 
+  # find total pages in pagination
+  def find_total_pages
+    trips = Trip.all.count
+    totol_pages = (trips/6).ceil 
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_trip
     @trip = Trip.find(params[:id])
@@ -89,7 +98,9 @@ class TripsController < ApplicationController
 
     params.require(:trip).permit(:id, :name, :description, :status, :start_date, :end_date,
       cities_attributes: [:id, :name, :country, 
-        places_attributes: [:id, :name, :description, :review]
+        places_attributes: [:id, :name, :description, :review,
+          pictures_attributes: [:id, :description, :url, :public_id]
+        ]
       ]
     )
   end
@@ -100,8 +111,9 @@ class TripsController < ApplicationController
     params['trip']["cities_attributes"].each do |city|
       city['places_attributes'] = city['places']
       # city.delete('places')
-      city.values_at('places_attributes').each do |place|
+      city['places_attributes'].each do |place|
         # Change for picture here
+        place['pictures_attributes'] = place['pictures']
       end
     end
   end

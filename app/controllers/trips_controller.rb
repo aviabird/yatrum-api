@@ -13,7 +13,8 @@ class TripsController < ApplicationController
       .limit(6)
       .offset(offset)
 
-    render json: @trips
+    total_pages = find_total_pages
+    render json: {trips: cusotm_serializer(@trips, TripSerializer), total_pages: total_pages}
   end
 
   # GET /trips/1
@@ -80,6 +81,12 @@ class TripsController < ApplicationController
   end
   
   private
+
+  # find total pages in pagination
+  def find_total_pages
+    trips = Trip.all.count
+    totol_pages = (trips/6).ceil 
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_trip

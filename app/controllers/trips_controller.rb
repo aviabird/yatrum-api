@@ -5,7 +5,7 @@ class TripsController < ApplicationController
 
   # GET /trips
   def index
-    page = (params[:page] || 1) - 1
+    page = (params[:page] || 1).to_i - 1
     @trips =
       Trip
       .includes(:user, cities: [places: :pictures])
@@ -63,7 +63,7 @@ class TripsController < ApplicationController
 
   # POST /trips/search
   def search
-    page = (params[:page] || 1) - 1
+    page = (params[:page] || 1).to_i - 1
     @trips =
       Trip
       .includes(:user, cities: [ places: :pictures ])
@@ -83,7 +83,7 @@ class TripsController < ApplicationController
 
   # GET /trips/trending
   def trending
-    page = (params[:page] || 1) - 1
+    page = (params[:page] || 1).to_i - 1
     @trips =
       Trip
       .includes(:user, cities: [places: :pictures])

@@ -8,16 +8,16 @@ user = User.create!(name: 'Jack', email: 'jack@test.com', password: '12345', pas
 tags = %w(river rafting india america mountains treking cycling swiming camping religious nature)
 
 images = [
-  'https://unsplash.com/?photo=b1NFkUR-3Fg',
-  'https://unsplash.com/?photo=3IEZsaXmzzs',
-  'https://unsplash.com/?photo=9O1oQ9SzQZQ',
-  'https://unsplash.com/?photo=zNN6ubHmruI',
-  'https://unsplash.com/?photo=vL4ARRCFyg4',
-  'https://unsplash.com/?photo=eJx43ng-fTU',
-  'https://unsplash.com/?photo=oiLGd4Dd7eY',
-  'https://unsplash.com/?photo=XN_CrZWxGDM',
-  'https://unsplash.com/?photo=cmKPOUgdmWc',
-  'https://unsplash.com/?photo=7bwQXzbF6KE'
+  'https://unsplash.com/?photo=b1NFkUR-3Fg/download?force=true',
+  'https://unsplash.com/?photo=3IEZsaXmzzs/download?force=true',
+  'https://unsplash.com/?photo=9O1oQ9SzQZQ/download?force=true',
+  'https://unsplash.com/?photo=zNN6ubHmruI/download?force=true',
+  'https://unsplash.com/?photo=vL4ARRCFyg4/download?force=true',
+  'https://unsplash.com/?photo=eJx43ng-fTU/download?force=true',
+  'https://unsplash.com/?photo=oiLGd4Dd7eY/download?force=true',
+  'https://unsplash.com/?photo=XN_CrZWxGDM/download?force=true',
+  'https://unsplash.com/?photo=cmKPOUgdmWc/download?force=true',
+  'https://unsplash.com/?photo=7bwQXzbF6KE/download?force=true'
 ]
 
 10.times.each do |count|

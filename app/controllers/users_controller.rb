@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_request, only: [:show, :update_user_profile_media, :add_traveller_to_user_following_list]
+  before_action :authenticate_request, only: [:show, :update_user_profile_media, :add_traveller_to_user_following_list, :auth_user]
 
   # create new user
   def create
@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     if @user.save
       render json: @user, status: :created
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: { error: @user.errors.full_messages }, status: :unprocessable_entity 
     end
   end
 
@@ -59,6 +59,14 @@ class UsersController < ApplicationController
     user = User.find(id)
     user_following = user.following
     render json: user_following
+  end
+
+  def auth_user
+    if current_user
+      render json: current_user
+    else
+      render json: { error: "User not present" }, status: :not_found
+    end
   end
 
   private

@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
-  before_action :authenticate_request, only: [:show, :update_user_profile_media, :add_traveller_to_user_following_list, :auth_user]
+  before_action :authenticate_request, only: [:show, :update_user_profile_media, 
+                                              :add_traveller_to_user_following_list,
+                                              :follow_trip_user, :auth_user]
 
   # create new user
   def create
@@ -42,9 +44,19 @@ class UsersController < ApplicationController
   end
 
   def add_traveller_to_user_following_list
-    user = current_user
-    user.active_relationships.create(followed_id: params[:followed_id])
-    render json: {status: true}
+    followed_id = params[:followed_id]
+    current_user.toggle_follow(followed_id)
+    followed_user = User.find(followed_id)
+    render json: followed_user
+  end
+
+  def follow_trip_user
+    id = params[:trip_id]
+    trip = Trip.find(id)
+    user_id = trip.user.id
+    current_user.toggle_follow(user_id)
+    trip = Trip.find(id)
+    render json: trip
   end
 
   def get_user_followers

@@ -12,7 +12,8 @@
 #
 
 class TripSerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :created_at, :updated_at, :user_id, :is_liked_by_current_user, :trip_likes_count
+  attributes :id, :name, :description, :created_at, :updated_at, :user_id,
+    :is_liked_by_current_user, :trip_likes_count, :thumbnail_image_url
 
   has_many :cities
   belongs_to :user
@@ -24,6 +25,12 @@ class TripSerializer < ActiveModel::Serializer
 
   def trip_likes_count
     object.get_likes.count
+  end
+
+  def thumbnail_image_url
+    object.cities.first.places.first.pictures.first.url
+  rescue
+    "http://res.cloudinary.com/zeus999/image/upload/h_300/v1483437708/sea-sky-beach-holiday-11_nnbuey.jpg" 
   end
 
 end

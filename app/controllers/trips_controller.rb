@@ -5,13 +5,13 @@ class TripsController < ApplicationController
 
   # GET /trips
   def index
-    page = params[:page].to_i
-    offset = (page - 1) * 6
+    page = (params[:page] || 1).to_i - 1
     @trips =
       Trip
       .includes(:user, cities: [places: :pictures])
+      .order(created_at: :desc)
       .limit(6)
-      .offset(offset)
+      .offset(page)
 
     total_pages = find_total_pages
     render json: {trips: cusotm_serializer(@trips, TripSerializer), total_pages: total_pages}
@@ -63,12 +63,13 @@ class TripsController < ApplicationController
 
   # POST /trips/search
   def search
+    page = (params[:page] || 1).to_i - 1
     @trips =
       Trip
       .includes(:user, cities: [ places: :pictures ])
       .tagged_with(params[:keywords].try(:split), any: true)
       .order(created_at: :desc)
-      .offset(params[:page])
+      .offset(page)
       .limit(10)
     
     render json: @trips
@@ -78,6 +79,20 @@ class TripsController < ApplicationController
   def like
     @trip.toggle_like(current_user)
     render json: @trip
+  end
+
+  # GET /trips/trending
+  def trending
+    page = (params[:page] || 1).to_i - 1
+    @trips =
+      Trip
+      .includes(:user, cities: [places: :pictures])
+      .order(cached_weighted_average: :desc)
+      .limit(6)
+      .offset(page)
+
+    total_pages = find_total_pages
+    render json: {trips: cusotm_serializer(@trips, TripSerializer), total_pages: total_pages}
   end
   
   private

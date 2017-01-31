@@ -36,7 +36,7 @@ class UserSerializer < ActiveModel::Serializer
     if object.profile_pic
       object.profile_pic
     else
-      { url: USER_CONSTANTS["default_profic_pic_male"], public_id: nil }
+      { url: USER_CONSTANTS["default_profic_pic_male"], public_id: "" }
     end
   end
 
@@ -44,7 +44,7 @@ class UserSerializer < ActiveModel::Serializer
     if object.cover_photo
       object.cover_photo
     else  
-      { url: USER_CONSTANTS["default_cover_photo"], public_id: nil }
+      { url: USER_CONSTANTS["default_cover_photo"], public_id: "" }
     end
   end
 
@@ -54,9 +54,8 @@ class UserSerializer < ActiveModel::Serializer
     #   binding.pry
     # end
     return false unless current_user
-    return nil if current_user.id == object.id
+    return false if current_user.id == object.id
     current_user.following.pluck(:id).include?(object.id)
   end
 
 end
-

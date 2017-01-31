@@ -46,14 +46,17 @@ class UsersController < ApplicationController
   def add_traveller_to_user_following_list
     followed_id = params[:followed_id]
     current_user.toggle_follow(followed_id)
-    render json: {status: true}
+    followed_user = User.find(followed_id)
+    render json: followed_user
   end
 
   def follow_trip_user
-    id = params[:followed_id]
-    current_user.toggle_follow(id)
-    followed_user = User.find(id)
-    render json: followed_user
+    id = params[:trip_id]
+    trip = Trip.find(id)
+    user_id = trip.user.id
+    current_user.toggle_follow(user_id)
+    trip = Trip.find(id)
+    render json: trip
   end
 
   def get_user_followers

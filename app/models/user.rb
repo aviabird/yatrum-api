@@ -30,6 +30,9 @@ class User < ApplicationRecord
   has_many :following, through: :active_relationships,  source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
+  validates_uniqueness_of :email
+  validates_length_of :password, minimum: 4, maximum: 32
+
   def full_name
     name
   end

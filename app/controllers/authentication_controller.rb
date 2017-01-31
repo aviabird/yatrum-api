@@ -7,7 +7,8 @@ class AuthenticationController < ApplicationController
     if command.success? 
       user = User.find_by_email(params[:email])
       User.current = user
-      render json: { auth_token: command.result, user: user }
+      user = ActiveModelSerializers::SerializableResource.new(user, adapter: :json).as_json[:user]
+      render json: { auth_token: command.result, user:  user}
     else
       User.current = nil
       render json: { error: command.errors }, status: :unauthorized 

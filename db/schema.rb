@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(version: 20170129132128) do
     t.string   "country"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "trip_id"
   end
 
   create_table "pictures", force: :cascade do |t|
@@ -38,7 +37,7 @@ ActiveRecord::Schema.define(version: 20170129132128) do
     t.string   "review"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "city_id"
+    t.integer  "trip_id"
   end
 
   create_table "relationships", force: :cascade do |t|

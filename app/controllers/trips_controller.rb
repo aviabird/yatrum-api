@@ -8,7 +8,7 @@ class TripsController < ApplicationController
     page = (params[:page] || 1).to_i - 1
     @trips =
       Trip
-      .includes(:user, cities: [places: :pictures])
+      .includes(:user, places: :pictures)
       .order(created_at: :desc)
       .limit(6)
       .offset(page)
@@ -53,7 +53,7 @@ class TripsController < ApplicationController
     trips =
       user
       .trips
-      .includes(cities: [places: :pictures])
+      .includes(places: :pictures)
       .order(created_at: :desc)
       .offset(params[:page])
       .limit(10)
@@ -66,7 +66,7 @@ class TripsController < ApplicationController
     page = (params[:page] || 1).to_i - 1
     @trips =
       Trip
-      .includes(:user, cities: [ places: :pictures ])
+      .includes(:user, places: :pictures)
       .tagged_with(params[:keywords].try(:split), any: true)
       .order(created_at: :desc)
       .offset(page)

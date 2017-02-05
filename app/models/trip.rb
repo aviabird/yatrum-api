@@ -15,10 +15,10 @@ class Trip < ApplicationRecord
   acts_as_taggable
   acts_as_votable
 
-  has_many :cities
+  has_many :places
   belongs_to :user, required: false # http://stackoverflow.com/a/39584972/1930053
 
-  accepts_nested_attributes_for :cities
+  accepts_nested_attributes_for :places
 
   def toggle_like(user)
     if voted_on_by? user

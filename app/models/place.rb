@@ -13,7 +13,7 @@
 
 class Place < ApplicationRecord
   has_many :pictures
-  belongs_to :city, required: false # http://stackoverflow.com/a/39584972/1930053
+  belongs_to :trip, required: false # http://stackoverflow.com/a/39584972/1930053
 
   accepts_nested_attributes_for :pictures
 

@@ -15,7 +15,7 @@ class TripSerializer < ActiveModel::Serializer
   attributes :id, :name, :description, :created_at, :updated_at, :user_id,
     :is_liked_by_current_user, :trip_likes_count, :thumbnail_image_url
 
-  has_many :cities
+  has_many :places
   belongs_to :user
 
   def is_liked_by_current_user

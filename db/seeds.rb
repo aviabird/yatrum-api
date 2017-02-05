@@ -24,20 +24,20 @@ images = [
   trip = user.trips.create!(name: "Pune trip #{count}", description: "Was mostly in summer #{count}")
   trip.tag_list.add(*tags.sample(rand(10)))
   trip.save!
-  city = trip.cities.create!(name: "Pune #{count}", country: 'India')
-  place = city.places.create!(name: "Agakhan Palace #{count}", description: "A very nice place #{count}", review: 'A good review')
+  # city = trip.cities.create!(name: "Pune #{count}", country: 'India')
+  place = trip.places.create!(name: "Agakhan Palace #{count}", description: "A very nice place #{count}", review: 'A good review')
   place.pictures.create!(url: images[count], description: 'just a pic')
 end
 
 user = User.create!(name: 'Chandra Shekhar', email: 'shekharait254@gmail.com', password: '12345', password_confirmation: '12345')
 trip = user.trips.create!(name: 'My first to India', description: 'Company Trip', status: 'completed')
-city = trip.cities.create!(name: 'Pune', country: 'India')
-place = city.places.create!(name: 'Aga khan Palace', description: 'old fort', review: 'very nice place')
+# city = trip.cities.create!(name: 'Pune', country: 'India')
+place = trip.places.create!(name: 'Aga khan Palace', description: 'old fort', review: 'very nice place')
 place.pictures.create!(url: "http://lorempixel.com/400/200", description: "Had so much fun here")
 
 trip = user.trips.create!(name: 'My first to Dubai', description: 'Dubai Trip', status: 'completed')
-city = trip.cities.create!(name: 'Pune', country: 'India')
-place = city.places.create!(
+# city = trip.cities.create!(name: 'Pune', country: 'India')
+place = trip.places.create!(
   name: "Aga Khan Palace",
   description: "The Aga Khan Palace was built by Sultan Muhammed Shah Aga Khan III in Pune, India. Built in 1892, 
                 it is one of the biggest landmarks in Indian history. The palace was an act of charity by the Sultan who wanted
@@ -54,7 +54,7 @@ place.pictures.create!(
   description: "Gandhi's ashes at the palace"
 )
 
-place = city.places.create!(
+place = trip.places.create!(
   name: "Shaniwar Wada",
   description: "Shaniwarwada (Śanivāravāḍā) is an 18th-century fortification in the city of Pune in Maharashtra, India. 
                 Built in 1732,[1] it was the seat of the Peshwa rulers of the Maratha Empire until 1818, when the Peshwas 
@@ -72,7 +72,7 @@ place.pictures.create!(
   description: "Shaniwar wada palace fountain"
 )
 
-place = city.places.create!(
+place = trip.places.create!(
   name: "Hyatt Regency",
   description: "This upscale hotel is a 4-minute walk from the nearest bus stop, 1.5 km from Aga Khan Palace and 8 km from the fortress of Shaniwar Wada.",
   review: "Nice rooms with nice food"
@@ -86,7 +86,7 @@ place.pictures.create!(
   description: "Having lunch with friends"
 )
 
-place = city.places.create!(
+place = trip.places.create!(
   name: "Lohagad fort",
   description: "Lohagad (Marathi: लोहगड, iron fort) is one of the many hill forts of Maharashtra state in India. Situated close to the hill station Lonavala
                 and 52 km (32 mi) northwest of Pune, Lohagad rises to an elevation of 1,033 m (3,389 ft) above sea level. The fort is connected
@@ -102,8 +102,8 @@ place.pictures.create!(
   description: "Lohgad fort walls"
 )
 
-city = trip.cities.create!(name: "Dubai", country: "UAE")
-place = city.places.create!(
+# city = trip.cities.create!(name: "Dubai", country: "UAE")
+place = trip.places.create!(
   name: "Burj Khalifa",
   description: "The Burj Khalifa (Arabic: برج خليفة‎‎, Arabic for 'Khalifa Tower'; pronounced English /ˈbɜːrdʒ kəˈliːfə/),
                 known as the Burj Dubai before its inauguration, is a megatall skyscraper in Dubai, United Arab Emirates.
@@ -119,7 +119,7 @@ place.pictures.create!(
   description: "Burj Khalifa NamePlate"
 )
 
-place = city.places.create!(
+place = trip.places.create!(
   name: "Palm Islands", 
   description: "Palm Islands are three artificial islands, Palm Jumeirah, Deira Island and Palm Jebel Ali, on the coast of Dubai,
                 United Arab Emirates. As of November 2014, only Palm Jumeirah has been completed. This island takes the form of a palm tree, 
@@ -132,7 +132,7 @@ place.pictures.create!(
   description: "Early evening view of palm islands"
 )
 
-place = city.places.create!(
+place = trip.places.create!(
   name: "The Dubai Mall",
   description: "The Dubai Mall (Arabic: دبي مول‎‎) is a shopping mall in Dubai and the largest mall in the world by total area.
                 Along with West Edmonton Mall in Canada, it is the nineteenth largest shopping mall in the world by gross leasable area.
@@ -150,7 +150,7 @@ place.pictures.create!(
   description: "too much rush outside KFC"
 )
 
-place = city.places.create!(
+place = trip.places.create!(
   name: "Ski Dubai",
   description: "Ski Dubai is an indoor ski resort with 22,500 square meters of indoor ski area.
                 It is a part of the Mall of the Emirates, one of the largest shopping malls in the world, located in Dubai,

@@ -7,7 +7,6 @@
 #  country    :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  trip_id    :integer
 #
 
 class City < ApplicationRecord

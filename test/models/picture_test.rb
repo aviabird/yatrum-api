@@ -8,6 +8,7 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  place_id    :integer
+#  public_id   :string
 #
 
 require 'test_helper'

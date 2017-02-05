@@ -8,7 +8,7 @@
 #  review      :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  city_id     :integer
+#  trip_id     :integer
 #
 
 class Place < ApplicationRecord

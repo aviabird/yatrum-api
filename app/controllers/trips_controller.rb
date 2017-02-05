@@ -110,26 +110,18 @@ class TripsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def trip_params
-
-    params.require(:trip).permit(:id, :name, :description, :status, :start_date, :end_date,
-      cities_attributes: [:id, :name, :country, 
-        places_attributes: [:id, :name, :description, :review,
-          pictures_attributes: [:id, :description, :url, :public_id]
-        ]
+    params.require(:trip).permit(:id, :name, :description, :status, :start_date, :end_date, 
+      places_attributes: [:id, :name, :description, :review,
+        pictures_attributes: [:id, :description, :url, :public_id]
       ]
     )
   end
 
   def sanitise_params
-    params['trip']['cities_attributes'] = params['trip']['cities']
-    # params['trip'].delete('cities')
-    params['trip']["cities_attributes"].each do |city|
-      city['places_attributes'] = city['places']
-      # city.delete('places')
-      city['places_attributes'].each do |place|
-        # Change for picture here
-        place['pictures_attributes'] = place['pictures']
-      end
+    params['trip']['places_attributes'] = params['trip']['places']
+      params['trip']['places_attributes'].each do |place|
+      # Change for picture here
+      place['pictures_attributes'] = place['pictures']
     end
   end
 end

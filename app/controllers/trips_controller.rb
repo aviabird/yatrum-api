@@ -8,7 +8,7 @@ class TripsController < ApplicationController
     page = (params[:page] || 1).to_i - 1
     @trips =
       Trip
-      .includes(:user, cities: [places: :pictures])
+      .includes(:user, places: :pictures)
       .order(created_at: :desc)
       .limit(6)
       .offset(page)
@@ -24,6 +24,7 @@ class TripsController < ApplicationController
 
   # POST /trips
   def create
+    binding.pry
     @trip = current_user.trips.new(trip_params)
     if @trip.save
       render json: @trip, status: :created, location: @trip
@@ -53,7 +54,7 @@ class TripsController < ApplicationController
     trips =
       user
       .trips
-      .includes(cities: [places: :pictures])
+      .includes(places: :pictures)
       .order(created_at: :desc)
       .offset(params[:page])
       .limit(10)
@@ -66,7 +67,7 @@ class TripsController < ApplicationController
     page = (params[:page] || 1).to_i - 1
     @trips =
       Trip
-      .includes(:user, cities: [ places: :pictures ])
+      .includes(:user, places: :pictures)
       .tagged_with(params[:keywords].try(:split), any: true)
       .order(created_at: :desc)
       .offset(page)
@@ -110,26 +111,19 @@ class TripsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def trip_params
-
-    params.require(:trip).permit(:id, :name, :description, :status, :start_date, :end_date,
-      cities_attributes: [:id, :name, :country, 
-        places_attributes: [:id, :name, :description, :review,
-          pictures_attributes: [:id, :description, :url, :public_id]
-        ]
+    params.require(:trip).permit(:id, :name, :description, :status, :start_date, :end_date, 
+      places_attributes: [:id, :name, :description, :review,
+        pictures_attributes: [:id, :description, :url, :public_id]
       ]
     )
   end
 
   def sanitise_params
-    params['trip']['cities_attributes'] = params['trip']['cities']
-    # params['trip'].delete('cities')
-    params['trip']["cities_attributes"].each do |city|
-      city['places_attributes'] = city['places']
-      # city.delete('places')
-      city['places_attributes'].each do |place|
-        # Change for picture here
-        place['pictures_attributes'] = place['pictures']
-      end
+    params['trip']['places_attributes'] = params['trip']['places']
+      params['trip']['places_attributes'].each do |place|
+      # Change for picture here
+      place['pictures_attributes'] = place['pictures']
     end
   end
+
 end

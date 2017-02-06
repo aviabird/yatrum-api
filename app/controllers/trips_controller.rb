@@ -24,7 +24,6 @@ class TripsController < ApplicationController
 
   # POST /trips
   def create
-    binding.pry
     @trip = current_user.trips.new(trip_params)
     if @trip.save
       render json: @trip, status: :created, location: @trip

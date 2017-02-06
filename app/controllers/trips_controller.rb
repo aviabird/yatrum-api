@@ -9,6 +9,7 @@ class TripsController < ApplicationController
     @trips =
       Trip
       .includes(:user, places: :pictures)
+      .where.not(user_id: current_user.try(:id))
       .order(created_at: :desc)
       .limit(6)
       .offset(page)
@@ -68,6 +69,7 @@ class TripsController < ApplicationController
     @trips =
       Trip
       .includes(:user, places: :pictures)
+      .where.not(user_id: current_user.try(:id))
       .tagged_with(params[:keywords].try(:split), any: true)
       .order(created_at: :desc)
       .offset(page)
@@ -88,6 +90,7 @@ class TripsController < ApplicationController
     @trips =
       Trip
       .includes(:user, cities: [places: :pictures])
+      .where.not(user_id: current_user.try(:id))
       .order(cached_weighted_average: :desc)
       .limit(6)
       .offset(page)

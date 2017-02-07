@@ -39,9 +39,10 @@ trip = user.trips.create!(name: 'My first to Dubai', description: 'Dubai Trip', 
 # city = trip.cities.create!(name: 'Pune', country: 'India')
 place = trip.places.create!(
   name: "Aga Khan Palace",
-  description: "The Aga Khan Palace was built by Sultan Muhammed Shah Aga Khan III in Pune, India. Built in 1892, 
-                it is one of the biggest landmarks in Indian history. The palace was an act of charity by the Sultan who wanted
-                to help the poor in the neighbouring areas of Pune, who were drastically hit by famine",
+  description: %Q(
+    The Aga Khan Palace was built by Sultan Muhammed Shah Aga Khan III in Pune, India. Built in 1892, 
+    it is one of the biggest landmarks in Indian history. The palace was an act of charity by the Sultan who wanted
+    to help the poor in the neighbouring areas of Pune, who were drastically hit by famine"),
   review: "Very nice palace"
 )
 place.pictures.create!(

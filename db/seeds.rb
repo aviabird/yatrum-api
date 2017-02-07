@@ -54,6 +54,11 @@ place.pictures.create!(
   description: "Gandhi's ashes at the palace"
 )
 
+place.pictures.create!(
+  url: "https://i2.wp.com/www.chuzailiving.com/wp-content/uploads/2014/09/aga-khan-palace-pune-2.jpg",
+  description: "outside view the palace"
+)
+
 place = trip.places.create!(
   name: "Shaniwar Wada",
   description: "Shaniwarwada (Śanivāravāḍā) is an 18th-century fortification in the city of Pune in Maharashtra, India. 

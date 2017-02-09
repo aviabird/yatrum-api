@@ -35,7 +35,7 @@ class UsersController < ApplicationController
     user = current_user
     status = if params['mediaType'].in? %w(profile_pic cover_photo)
       user[params['mediaType']] = {url: params["url"], public_id: params["public_id"] }
-      user.save
+      user.save validate: false
       true
     else
       false

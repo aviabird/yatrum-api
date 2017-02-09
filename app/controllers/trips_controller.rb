@@ -88,7 +88,7 @@ class TripsController < ApplicationController
     page = (params[:page] || 1).to_i - 1
     @trips =
       Trip
-      .includes(:user, cities: [places: :pictures])
+      .includes(:user, places: :pictures)
       .where.not(user_id: current_user.try(:id))
       .order(cached_weighted_average: :desc)
       .limit(6)

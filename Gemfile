@@ -46,3 +46,7 @@ gem 'oj', '~> 2.18.0'
 gem 'oj_mimic_json'
 gem 'acts-as-taggable-on', '~> 4.0'
 gem 'acts_as_votable', '~> 0.10.0'
+
+
+# Mail Chimp Gem
+gem 'gibbon'

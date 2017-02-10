@@ -33,6 +33,8 @@ class User < ApplicationRecord
   validates_uniqueness_of :email
   validates_length_of :password, minimum: 4, maximum: 32
 
+  after_create :subscribe_user_to_mailing_list
+
   def full_name
     name
   end
@@ -70,4 +72,9 @@ class User < ApplicationRecord
     Thread.current[:current_user]
   end
 
+  private
+
+  def subscribe_user_to_mailing_list
+    SubscribeUserToMailingListJob.perform_later(self)
+  end
 end

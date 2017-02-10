@@ -75,4 +75,25 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+
+  # For Production
+  # NOTE: As we are using Herkou this settings are for Heroku
+  # If using anything else, please change the config accordingly
+  ActionMailer::Base.register_interceptor(SendGrid::MailInterceptor)
+
+  if ENV['SENDGRID_USERNAME'] && ENV['SENDGRID_PASSWORD']
+    ActionMailer::Base.smtp_settings = {
+      :address        => 'smtp.sendgrid.net',
+      :port           => '465',
+      :authentication => :plain,
+      :user_name      => ENV['SENDGRID_USERNAME'],
+      :password       => ENV['SENDGRID_PASSWORD'],
+      :domain         => 'heroku.com',
+      :enable_starttls_auto => true,
+      :ssl => true
+    }
+    ActionMailer::Base.delivery_method = :smtp
+  end
+
 end

@@ -33,7 +33,7 @@ class User < ApplicationRecord
   validates_uniqueness_of :email
   validates_length_of :password, minimum: 4, maximum: 32
 
-  after_create :subscribe_user_to_mailing_list
+  after_create :subscribe_user_to_mailing_list, :send_welcome_email
 
   def full_name
     name
@@ -74,7 +74,14 @@ class User < ApplicationRecord
 
   private
 
+  # TODO: Use perform_later instead of perform_now
+  # But currenttly we dnot have any delay job worker like sidekiq...
+  # intergate sidekiq
   def subscribe_user_to_mailing_list
-    SubscribeUserToMailingListJob.perform_later(self)
+    SubscribeUserToMailingListJob.perform_now(self)
+  end
+
+  def send_welcome_email
+    UserMailer.welcome_email(self).deliver_now
   end
 end

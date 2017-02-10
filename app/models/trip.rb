@@ -25,7 +25,7 @@ class Trip < ApplicationRecord
   has_many :places
   belongs_to :user, required: false # http://stackoverflow.com/a/39584972/1930053
 
-  accepts_nested_attributes_for :places
+  accepts_nested_attributes_for :places, :allow_destroy => true
 
   def toggle_like(user)
     if voted_on_by? user

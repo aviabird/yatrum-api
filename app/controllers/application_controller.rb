@@ -10,7 +10,7 @@ class ApplicationController < ActionController::API
 
   def authenticate_api
     @current_user = AuthorizeApiRequest.call(request.headers).result
-    Thread.current[:current_user] = @current_user if @current_user
+    Thread.current[:current_user] = @current_user
   end
 
   def user_signed_in?

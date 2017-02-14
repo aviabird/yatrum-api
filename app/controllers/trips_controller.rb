@@ -5,14 +5,14 @@ class TripsController < ApplicationController
 
   # GET /trips
   def index
-    page = (params[:page] || 1).to_i - 1
+    offset = ((params[:page] || 1).to_i - 1) * 6
     @trips =
       Trip
       .includes(:user, places: :pictures)
       .where.not(user_id: current_user.try(:id))
       .order(created_at: :desc)
       .limit(6)
-      .offset(page)
+      .offset(offset)
 
     total_pages = find_total_pages
     render json: {trips: cusotm_serializer(@trips, TripSerializer), total_pages: total_pages}
@@ -85,14 +85,14 @@ class TripsController < ApplicationController
 
   # GET /trips/trending
   def trending
-    page = (params[:page] || 1).to_i - 1
+    offset = ((params[:page] || 1).to_i - 1) * 6
     @trips =
       Trip
       .includes(:user, places: :pictures)
       .where.not(user_id: current_user.try(:id))
       .order(cached_weighted_average: :desc)
       .limit(6)
-      .offset(page)
+      .offset(offset)
 
     total_pages = find_total_pages
     render json: {trips: cusotm_serializer(@trips, TripSerializer), total_pages: total_pages}

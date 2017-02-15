@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
+  
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   # get 'users/create'
+  
+  devise_for :users
+  
+  # Made For Devise intergation 
+  # TODO: Should be changed to yatrums home index
+  root to: "home#index"
+
+
 
   get 'users/:user_id/trips', to: 'trips#get_user_trips'
   post 'trips/search', to: 'trips#search'
@@ -18,7 +28,7 @@ Rails.application.routes.draw do
   post 'follow_trip_user', to: 'users#follow_trip_user'
   post 'user_followers', to: 'users#get_user_followers'
   post 'user_following', to: 'users#get_user_following'
-
+  post 'update_password', to: 'users#update_password'
 # instagram related routes
   get 'is_user_instagram_authenticated', to: 'instagram#check_user_is_instagram_authenticated'
   get 'get_user_instagram_media', to: 'instagram#get_user_instagram_media'

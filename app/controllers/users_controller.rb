@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_request, only: [:show, :update_user_profile_media, 
                                               :add_traveller_to_user_following_list,
-                                              :follow_trip_user, :auth_user]
+                                              :follow_trip_user, :auth_user, :update_password]
 
   # create new user
   def create
@@ -81,6 +81,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def update_password
+    if current_user && current_user.valid_password?(params[:current_password])
+      current_user.update(password: params[:password], password_confirmation: params[:password_confirmation])
+      render json: current_user
+    else
+      render json: {error: "Password update Failed"}, status: :failed
+    end
+  end
+
+
   private
 
   def media_type
@@ -89,6 +99,6 @@ class UsersController < ApplicationController
 
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :current_password, :password, :password_confirmation)
   end
 end

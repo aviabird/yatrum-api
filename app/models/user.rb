@@ -4,8 +4,7 @@
 #
 #  id                        :integer          not null, primary key
 #  name                      :string
-#  email                     :string
-#  password_digest           :string
+#  email                     :string           default(""), not null
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  instagram_access_token    :string
@@ -13,10 +12,26 @@
 #  instagram_profile_picture :string
 #  profile_pic               :text
 #  cover_photo               :text
+#  role_id                   :integer
+#  encrypted_password        :string           default(""), not null
+#  reset_password_token      :string
+#  reset_password_sent_at    :datetime
+#  remember_created_at       :datetime
+#  sign_in_count             :integer          default(0), not null
+#  current_sign_in_at        :datetime
+#  last_sign_in_at           :datetime
+#  current_sign_in_ip        :inet
+#  last_sign_in_ip           :inet
 #
 
 class User < ApplicationRecord
-  has_secure_password
+  # has_secure_password
+
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
+
+  # attr_accessible :password, :password_confirmation
+
   serialize :profile_pic 
   serialize :cover_photo
 
@@ -29,11 +44,24 @@ class User < ApplicationRecord
                                    dependent:   :destroy
   has_many :following, through: :active_relationships,  source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
+  
+  belongs_to :role
 
   validates_uniqueness_of :email
   validates_length_of :password, minimum: 4, maximum: 32
 
-  after_create :subscribe_user_to_mailing_list, :send_welcome_email
+  # after_create :subscribe_user_to_mailing_list, :send_welcome_email
+
+# Roles of a User
+  ROLES = {
+    admin: 'admin',
+    user:  'user'
+  }.freeze
+
+  # Check if user is Admin or not
+  def admin?
+    role.try(:name).eql? ROLES[:admin]
+  end
 
   def full_name
     name

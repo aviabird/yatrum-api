@@ -4,7 +4,23 @@ City.destroy_all
 Place.destroy_all
 Picture.destroy_all
 
-user = User.create!(name: 'Jack', email: 'jack@test.com', password: '12345', password_confirmation: '12345')
+
+
+admin_role = Role.find_or_create_by!(name: 'admin')
+user_role = Role.find_or_create_by!(name: 'user')
+
+puts "Roles Created!"
+
+User.find_or_create_by(email: 'admin@example.com') do |user|
+  user.password = '123456'
+  user.password_confirmation = '123456'
+  user.role_id = admin_role.id
+end
+
+puts "Admin Created!"
+
+
+user = User.create!(name: 'Jack', email: 'jack@test.com', password: '1234567', password_confirmation: '1234567', role_id: user_role.id)
 tags = %w(river rafting india america mountains treking cycling swiming camping religious nature)
 
 images = [
@@ -29,7 +45,7 @@ images = [
   place.pictures.create!(url: images[count], description: 'just a pic')
 end
 
-user = User.create!(name: 'Chandra Shekhar', email: 'shekharait254@gmail.com', password: '12345', password_confirmation: '12345')
+user = User.create!(name: 'Chandra Shekhar', email: 'shekharait254@gmail.com', password: '1234567', password_confirmation: '1234567')
 trip = user.trips.create!(name: 'My first to India', description: 'Company Trip', status: 'completed')
 # city = trip.cities.create!(name: 'Pune', country: 'India')
 place = trip.places.create!(name: 'Aga khan Palace', description: 'old fort', review: 'very nice place')

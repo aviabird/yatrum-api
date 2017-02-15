@@ -1,5 +1,6 @@
 class TripsController < ApplicationController
-  before_action :authenticate_request, only: [:create, :update, :destroy, :like]
+  before_action :authenticate_request,
+    only: [:create, :update, :destroy, :like, :delete_comment, :add_comment]
   before_action :set_trip, only: [:show, :update, :destroy, :like]
   before_action :sanitise_params, only: [:create, :update]
 
@@ -15,7 +16,7 @@ class TripsController < ApplicationController
       .offset(offset)
 
     total_pages = find_total_pages
-    render json: {trips: cusotm_serializer(@trips, TripSerializer), total_pages: total_pages}
+    render json: {trips: custom_serializer(@trips, TripSerializer), total_pages: total_pages}
   end
 
   # GET /trips/1
@@ -95,7 +96,53 @@ class TripsController < ApplicationController
       .offset(offset)
 
     total_pages = find_total_pages
-    render json: {trips: cusotm_serializer(@trips, TripSerializer), total_pages: total_pages}
+    render json: {trips: custom_serializer(@trips, TripSerializer), total_pages: total_pages}
+  end
+
+  # GET /trips/:id/comments
+  def comments
+    comments =
+      HTTParty
+      .get("#{ENV["YT_COMMENT_API_URL"]}/trips/#{params[:id]}/comments")
+      .as_json["data"]
+
+    users = User.where(id: comments.map{|comm| comm["user_id"]})
+    users = custom_serializer(users, UserSerializer).as_json
+
+    comments = comments.map! do |comment|
+      comment.merge(user: users.find{|user| user[:id] == comment["user_id"].to_i})
+    end
+
+    render json: comments
+  end
+
+  # POST /trips/comments/:id
+  def delete_comment
+    if params[:user_id] == current_user.id.to_s
+      HTTParty.delete("#{ENV["YT_COMMENT_API_URL"]}/comments/#{params[:id]}")
+    else
+      render json: "ERROR", status: :unauthorized 
+    end
+  end
+
+  # POST /trips/comments
+  def add_comment
+    if comment_params[:user_id] == current_user.id
+
+      comment =
+        HTTParty
+        .post(
+          "#{ENV["YT_COMMENT_API_URL"]}/comments",
+          body: {
+            comment: comment_params.as_json
+        }).as_json["data"]
+      
+      comment["user"] = custom_serializer([User.find(current_user.id)], UserSerializer).as_json[0]
+
+      render json: comment
+    else
+      render json: "ERROR", status: :unauthorized 
+    end
   end
   
   private
@@ -126,6 +173,10 @@ class TripsController < ApplicationController
       # Change for picture here
       place['pictures_attributes'] = place['pictures']
     end
+  end
+
+  def comment_params
+    params.require(:comment).permit(:user_id, :trip_id, :message)
   end
 
 end

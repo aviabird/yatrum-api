@@ -53,3 +53,5 @@ gem 'gibbon'
 
 # SendGrid For Mailr
 gem 'sendgrid-rails', '~> 2.0'
+
+gem "httparty"

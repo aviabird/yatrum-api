@@ -93,7 +93,7 @@ class User < ApplicationRecord
     data = oauth.data
 
     user = find_by(oauth.provider => data[:id]) || find_or_create_by(email: data[:email]) do |u|
-      u.password =  SecureRandom.hex
+      u.password = SecureRandom.hex
     end
 
     user.update(
@@ -146,7 +146,8 @@ class User < ApplicationRecord
     #   user.image = Image.new(name: user.full_name, remote_file_url: params[:image_url])
     # end
 
-    user.password = Devise.friendly_token[0,10] if user.encrypted_password.blank?
+    # user.password = Devise.friendly_token[0,10] if user.encrypted_password.blank?
+    user.password = SecureRandom.hex if user.password_digest.blank?
 
     # In case of twitter authentication
     # But this will be removed

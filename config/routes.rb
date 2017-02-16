@@ -15,6 +15,9 @@ Rails.application.routes.draw do
   post 'trips/search', to: 'trips#search'
   post 'trips/like', to: 'trips#like'
   get 'trending/trips', to: 'trips#trending'
+  get 'trips/:id/comments', to: 'trips#comments'
+  post 'trips/comments', to: 'trips#delete_comment'
+  post 'trips/add_comments', to: 'trips#add_comment'
   resources :trips
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 

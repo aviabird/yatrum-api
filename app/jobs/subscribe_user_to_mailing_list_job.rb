@@ -10,7 +10,6 @@ class SubscribeUserToMailingListJob < ApplicationJob
       .members
       .create(body: { email_address: user.email,
                       status: "subscribed",
-                      merge_fields: {FNAME: user.name}
-                    })
+                      merge_fields: {FNAME: user.name, MMERGE3: "http://developer.mailchimp.com", MMERGE5: "http://twitter.com/_voidzero"}})
     end
 end

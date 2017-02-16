@@ -55,3 +55,7 @@ gem 'gibbon'
 gem 'sendgrid-rails', '~> 2.0'
 
 gem "httparty"
+
+
+# Sentry
+gem "sentry-raven"

@@ -13,6 +13,9 @@
 #  instagram_profile_picture :string
 #  profile_pic               :text
 #  cover_photo               :text
+#  google                    :string
+#  facebook                  :string
+#  display_name              :string
 #
 
 class User < ApplicationRecord
@@ -145,6 +148,8 @@ class User < ApplicationRecord
 
     user.password = Devise.friendly_token[0,10] if user.encrypted_password.blank?
 
+    # In case of twitter authentication
+    # But this will be removed
     if user.email.blank?
       user.save(validate: false)
     else

@@ -13,6 +13,9 @@
 #  instagram_profile_picture :string
 #  profile_pic               :text
 #  cover_photo               :text
+#  google                    :string
+#  facebook                  :string
+#  display_name              :string
 #
 
 require 'test_helper'

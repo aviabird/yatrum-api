@@ -30,8 +30,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  # attr_accessible :password, :password_confirmation
-
   serialize :profile_pic 
   serialize :cover_photo
 
@@ -50,7 +48,7 @@ class User < ApplicationRecord
   validates_uniqueness_of :email
   validates_length_of :password, minimum: 4, maximum: 32
 
-  # after_create :subscribe_user_to_mailing_list, :send_welcome_email
+  after_create :subscribe_user_to_mailing_list, :send_welcome_email
 
 # Roles of a User
   ROLES = {

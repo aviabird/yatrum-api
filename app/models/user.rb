@@ -16,6 +16,11 @@
 #  google                    :string
 #  facebook                  :string
 #  display_name              :string
+#  facebook_url              :string
+#  twitter_url               :string
+#  instagram_url             :string
+#  website_url               :string
+#  blog_url                  :string
 #
 
 class User < ApplicationRecord
@@ -36,7 +41,7 @@ class User < ApplicationRecord
   validates_uniqueness_of :email
   validates_length_of :password, minimum: 4, maximum: 32
 
-  after_create :subscribe_user_to_mailing_list, :send_welcome_email
+  # after_create :subscribe_user_to_mailing_list, :send_welcome_email
 
   def full_name
     name
@@ -147,8 +152,9 @@ class User < ApplicationRecord
     # end
 
     # user.password = Devise.friendly_token[0,10] if user.encrypted_password.blank?
-    user.password = SecureRandom.hex if user.password_digest.blank?
 
+    # user.password = SecureRandom.hex if user.password_digest.blank?
+    user.password = SecureRandom.hex
     # Storing Name and other details of user 
     first_name ||= (params[:first_name] || fallback_first_name)
     last_name  ||= (params[:last_name]  || fallback_last_name)

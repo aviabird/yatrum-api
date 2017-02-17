@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   post 'follow_trip_user', to: 'users#follow_trip_user'
   post 'user_followers', to: 'users#get_user_followers'
   post 'user_following', to: 'users#get_user_following'
-
+  post 'users/update_social_links', to: 'users#update_social_links'
 # instagram related routes
   get 'is_user_instagram_authenticated', to: 'instagram#check_user_is_instagram_authenticated'
   get 'get_user_instagram_media', to: 'instagram#get_user_instagram_media'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170217063845) do
+ActiveRecord::Schema.define(version: 20170217093520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,6 +124,11 @@ ActiveRecord::Schema.define(version: 20170217063845) do
     t.string   "google"
     t.string   "facebook"
     t.string   "display_name"
+    t.string   "facebook_url"
+    t.string   "twitter_url"
+    t.string   "instagram_url"
+    t.string   "website_url"
+    t.string   "blog_url"
   end
 
   create_table "votes", force: :cascade do |t|

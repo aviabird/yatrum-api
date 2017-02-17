@@ -81,6 +81,12 @@ class UsersController < ApplicationController
     end
   end
 
+
+  def update_social_links
+    binding.pry
+  end
+
+
   private
 
   def media_type

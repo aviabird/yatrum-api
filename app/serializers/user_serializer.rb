@@ -16,12 +16,19 @@
 #  google                    :string
 #  facebook                  :string
 #  display_name              :string
+#  facebook_url              :string
+#  twitter_url               :string
+#  instagram_url             :string
+#  website_url               :string
+#  blog_url                  :string
 #
 
 class UserSerializer < ActiveModel::Serializer
   attributes :id, :name, :email, :instagram_access_token, :instagram_profile_picture,
              :instagram_user_name, :profile_pic, :cover_photo, :total_followers,
-             :total_following, :total_trips, :is_followed_by_current_user
+             :total_following, :total_trips, :is_followed_by_current_user,
+             :facebook_url, :twitter_url, :instagram_url, :website_url,
+             :blog_url
 
   def total_followers
     object.total_followers

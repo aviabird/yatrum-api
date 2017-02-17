@@ -16,6 +16,11 @@
 #  google                    :string
 #  facebook                  :string
 #  display_name              :string
+#  facebook_url              :string
+#  twitter_url               :string
+#  instagram_url             :string
+#  website_url               :string
+#  blog_url                  :string
 #
 
 require 'test_helper'

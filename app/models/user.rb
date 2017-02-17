@@ -149,6 +149,12 @@ class User < ApplicationRecord
     # user.password = Devise.friendly_token[0,10] if user.encrypted_password.blank?
     user.password = SecureRandom.hex if user.password_digest.blank?
 
+    # Storing Name and other details of user 
+    first_name ||= (params[:first_name] || fallback_first_name)
+    last_name  ||= (params[:last_name]  || fallback_last_name)
+    user.name  ||= "#{first_name} #{last_name}"
+    user.profile_pic ||= params[:image_url]
+
     # In case of twitter authentication
     # But this will be removed
     if user.email.blank?

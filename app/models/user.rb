@@ -36,7 +36,7 @@ class User < ApplicationRecord
   validates_uniqueness_of :email
   validates_length_of :password, minimum: 4, maximum: 32
 
-  # after_create :subscribe_user_to_mailing_list, :send_welcome_email
+  after_create :subscribe_user_to_mailing_list, :send_welcome_email
 
   def full_name
     name

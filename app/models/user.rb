@@ -153,7 +153,7 @@ class User < ApplicationRecord
     first_name ||= (params[:first_name] || fallback_first_name)
     last_name  ||= (params[:last_name]  || fallback_last_name)
     user.name  ||= "#{first_name} #{last_name}"
-    user.profile_pic ||= params[:image_url]
+    user.profile_pic ||= { url: params[:image_url], public_id: "" } 
 
     # In case of twitter authentication
     # But this will be removed

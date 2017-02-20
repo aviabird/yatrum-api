@@ -136,9 +136,6 @@ ActiveRecord::Schema.define(version: 20170217093520) do
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-    t.index ["role_id"], name: "index_users_on_role_id", using: :btree
     t.string   "google"
     t.string   "facebook"
     t.string   "display_name"
@@ -147,6 +144,9 @@ ActiveRecord::Schema.define(version: 20170217093520) do
     t.string   "instagram_url"
     t.string   "website_url"
     t.string   "blog_url"
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+    t.index ["role_id"], name: "index_users_on_role_id", using: :btree
   end
 
   create_table "votes", force: :cascade do |t|

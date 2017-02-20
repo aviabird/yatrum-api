@@ -78,3 +78,7 @@ gem 'jbuilder', '~> 2.5'
 
 # Http Party
 gem "httparty"
+
+
+# Sentry
+gem "sentry-raven"

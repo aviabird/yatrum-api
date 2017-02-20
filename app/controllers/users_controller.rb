@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   before_action :authenticate_request, only: [:show, :update_user_profile_media, 
                                               :add_traveller_to_user_following_list,
-                                              :follow_trip_user, :auth_user, :update_password]
+                                              :follow_trip_user, :auth_user, 
+                                              :update_social_links, :update_password]
 
   # create new user
   def create
@@ -90,6 +91,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def update_social_links
+    params = user_params
+    current_user.update_attributes(user_params)
+    if current_user
+      render json: current_user
+    else 
+      render json: {message: 'User not found'}, status: :not_found
+    end
+  end
 
   private
 
@@ -99,6 +109,14 @@ class UsersController < ApplicationController
 
 
   def user_params
-    params.require(:user).permit(:name, :email, :current_password, :password, :password_confirmation)
+    params.require(:user).permit(:name, 
+                                 :email,
+                                 :password, 
+                                 :password_confirmation,
+                                 :facebook_url,
+                                 :twitter_url,
+                                 :instagram_url,
+                                 :website_url,
+                                 :blog_url)
   end
 end

@@ -22,7 +22,23 @@ module TravelApi
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     # config.active_job.queue_adapter = :async
-    
+ 
+    # =========================== Sentry Configuration ======================
+
+    # Sending Logs for only certain enviornments and setting up dsn
+    Raven.configure do |config|
+      config.dsn = ENV['SENTRY_DSN']
+      config.environments = ['staging', 'production']
+      config.sanitize_fields = Rails.application.config.filter_parameters.map(&:to_s)
+    end
+
+    config.action_dispatch.show_exceptions = false # this is the default setting in production
+
+    config.filter_parameters << :password
+
+  
+    # ========================================================================
+
     config.autoload_paths << Rails.root.join('lib')
     # config.active_job.queue_adapter = :delayed_job
     # Only loads a smaller set of middleware suitable for API only apps.

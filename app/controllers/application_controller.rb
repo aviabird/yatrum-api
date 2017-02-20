@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   # before_action :set_current_user
   # protect_from_forgery with: :null_session
   before_action :authenticate_api
+  # This authentication should be at the controller level
+  before_action :set_raven_context
 
   # This authentication should be at the controller level
   attr_reader :current_user 
@@ -51,4 +53,12 @@ class ApplicationController < ActionController::Base
 
   #   @current_user = User.find(payload.user_id) if payload.valid?
   # end
+
+
+  # For storing parms and session only in 
+  # production and staging envionment
+  def set_raven_context
+    Raven.user_context(id: session[:current_user_id]) # or anything else in session
+    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
+  end
 end

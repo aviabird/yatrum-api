@@ -199,6 +199,8 @@ GEM
     sendgrid-rails (2.0.5)
       actionmailer (>= 3.0.0)
       activesupport (>= 2.1.0)
+    sentry-raven (2.3.0)
+      faraday (>= 0.7.6, < 1.0)
     simple_command (0.0.9)
     slop (3.6.0)
     spring (2.0.0)
@@ -259,6 +261,7 @@ DEPENDENCIES
   rails_admin (~> 1.0)
   sass-rails (~> 5.0)
   sendgrid-rails (~> 2.0)
+  sentry-raven
   simple_command
   spring
   spring-watcher-listen (~> 2.0.0)

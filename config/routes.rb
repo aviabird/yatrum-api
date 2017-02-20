@@ -21,10 +21,12 @@ Rails.application.routes.draw do
   resources :trips
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
+  post 'auth/:provider', to: 'authentication#social_authenticate'
   post 'authenticate', to: 'authentication#authenticate'
   post 'users/create', to: 'users#create'
   post 'users/show', to: 'users#show'
   post 'users/auth_user', to: 'users#auth_user'
+  post 'users/update_social_links', to: 'users#update_social_links'
   post 'users/:id', to: 'users#get_user_by_id'
   post 'update_user_profile_media', to: 'users#update_user_profile_media'
   post 'add_to_user_following_list', to: 'users#add_traveller_to_user_following_list'

@@ -1,33 +1,9 @@
-# == Schema Information
-#
-# Table name: users
-#
-#  id                        :integer          not null, primary key
-#  name                      :string
-#  email                     :string           default(""), not null
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  instagram_access_token    :string
-#  instagram_user_name       :string
-#  instagram_profile_picture :string
-#  profile_pic               :text
-#  cover_photo               :text
-#  role_id                   :integer
-#  encrypted_password        :string           default(""), not null
-#  reset_password_token      :string
-#  reset_password_sent_at    :datetime
-#  remember_created_at       :datetime
-#  sign_in_count             :integer          default(0), not null
-#  current_sign_in_at        :datetime
-#  last_sign_in_at           :datetime
-#  current_sign_in_ip        :inet
-#  last_sign_in_ip           :inet
-#
-
 class UserSerializer < ActiveModel::Serializer
   attributes :id, :name, :email, :instagram_access_token, :instagram_profile_picture,
              :instagram_user_name, :profile_pic, :cover_photo, :total_followers,
-             :total_following, :total_trips, :is_followed_by_current_user
+             :total_following, :total_trips, :is_followed_by_current_user,
+             :facebook_url, :twitter_url, :instagram_url, :website_url,
+             :blog_url
 
   def total_followers
     object.total_followers

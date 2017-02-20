@@ -42,7 +42,7 @@ class User < ApplicationRecord
   
   # validates_length_of :password, minimum: 4, maximum: 32
 
-  after_create :subscribe_user_to_mailing_list, :send_welcome_email if not_development_or_test_env
+  after_create :subscribe_user_to_mailing_list, :send_welcome_email if :not_development_or_test_env
 
   def not_development_or_test_env
     if (ENV.fetch("RAILS_ENV") != 'development') || (ENV.fetch("RAILS_ENV") != 'test')

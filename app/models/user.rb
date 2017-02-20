@@ -27,7 +27,7 @@ class User < ApplicationRecord
   has_secure_password
   serialize :profile_pic 
   serialize :cover_photo
-
+  
   has_many :trips
   has_many :active_relationships,  class_name:  "Relationship",
                                    foreign_key: "follower_id",
@@ -39,9 +39,17 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :follower
 
   validates_uniqueness_of :email
-  validates_length_of :password, minimum: 4, maximum: 32
+  
+  # validates_length_of :password, minimum: 4, maximum: 32
 
-  # after_create :subscribe_user_to_mailing_list, :send_welcome_email
+  after_create :subscribe_user_to_mailing_list, :send_welcome_email if not_development_or_test_env
+
+  def not_development_or_test_env
+    if (ENV.fetch("RAILS_ENV") != 'development') || (ENV.fetch("RAILS_ENV") != 'test')
+      return true
+    end
+    return false
+  end
 
   def full_name
     name

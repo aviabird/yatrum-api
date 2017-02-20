@@ -152,8 +152,8 @@ class User < ApplicationRecord
     # end
 
     # user.password = Devise.friendly_token[0,10] if user.encrypted_password.blank?
-
     # user.password = SecureRandom.hex if user.password_digest.blank?
+
     user.password = SecureRandom.hex
     # Storing Name and other details of user 
     first_name ||= (params[:first_name] || fallback_first_name)

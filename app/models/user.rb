@@ -32,7 +32,6 @@
 #  blog_url                  :string
 #
 
-
 class User < ApplicationRecord
   # has_secure_password
 
@@ -43,6 +42,7 @@ class User < ApplicationRecord
   serialize :cover_photo
   
   has_many :trips
+  has_many :pictures
   has_many :active_relationships,  class_name:  "Relationship",
                                    foreign_key: "follower_id",
                                    dependent:   :destroy
@@ -191,7 +191,7 @@ class User < ApplicationRecord
     first_name ||= (params[:first_name] || fallback_first_name)
     last_name  ||= (params[:last_name]  || fallback_last_name)
     user.name  ||= "#{first_name} #{last_name}"
-    user.profile_pic ||= { url: params[:image_url], public_id: "" } 
+    user.profile_pic = { url: params[:image_url], public_id: "" } 
 
     # In case of twitter authentication
     # But this will be removed

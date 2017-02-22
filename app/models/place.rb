@@ -18,4 +18,8 @@ class Place < ApplicationRecord
 
   accepts_nested_attributes_for :pictures, :allow_destroy => true
 
+  def place_pictures
+    pictures
+  end
+
 end

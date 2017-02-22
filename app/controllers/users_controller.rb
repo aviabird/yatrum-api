@@ -1,8 +1,12 @@
 class UsersController < ApplicationController
+  include CommonRender
+  
   before_action :authenticate_request, only: [:show, :update_user_profile_media, 
                                               :add_traveller_to_user_following_list,
                                               :follow_trip_user, :auth_user, 
                                               :update_social_links, :update_password]
+
+
 
   # create new user
   def create
@@ -72,6 +76,19 @@ class UsersController < ApplicationController
     user = User.find(id)
     user_following = user.following
     render json: user_following
+  end
+
+  def get_user_pictures
+    id = params[:user_id]
+
+    user = User.find(id)
+    # binding.pry
+    if user.present?
+      user_pictures = user.pictures
+      render_success(user_pictures: user_pictures)    
+    else
+      render_error("Can't Find User")
+    end
   end
 
   def auth_user

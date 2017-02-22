@@ -9,6 +9,7 @@
 #  updated_at  :datetime         not null
 #  place_id    :integer
 #  public_id   :string
+#  user_id     :integer
 #
 
 require 'test_helper'

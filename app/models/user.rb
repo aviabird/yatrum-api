@@ -1,3 +1,37 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                        :integer          not null, primary key
+#  name                      :string
+#  email                     :string           default(""), not null
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  instagram_access_token    :string
+#  instagram_user_name       :string
+#  instagram_profile_picture :string
+#  profile_pic               :text
+#  cover_photo               :text
+#  role_id                   :integer
+#  encrypted_password        :string           default(""), not null
+#  reset_password_token      :string
+#  reset_password_sent_at    :datetime
+#  remember_created_at       :datetime
+#  sign_in_count             :integer          default(0), not null
+#  current_sign_in_at        :datetime
+#  last_sign_in_at           :datetime
+#  current_sign_in_ip        :inet
+#  last_sign_in_ip           :inet
+#  google                    :string
+#  facebook                  :string
+#  display_name              :string
+#  facebook_url              :string
+#  twitter_url               :string
+#  instagram_url             :string
+#  website_url               :string
+#  blog_url                  :string
+#
+
 
 class User < ApplicationRecord
   # has_secure_password
@@ -9,6 +43,7 @@ class User < ApplicationRecord
   serialize :cover_photo
   
   has_many :trips
+  has_many :pictures
   has_many :active_relationships,  class_name:  "Relationship",
                                    foreign_key: "follower_id",
                                    dependent:   :destroy
@@ -157,7 +192,7 @@ class User < ApplicationRecord
     first_name ||= (params[:first_name] || fallback_first_name)
     last_name  ||= (params[:last_name]  || fallback_last_name)
     user.name  ||= "#{first_name} #{last_name}"
-    user.profile_pic ||= { url: params[:image_url], public_id: "" } 
+    user.profile_pic = { url: params[:image_url], public_id: "" } 
 
     # In case of twitter authentication
     # But this will be removed

@@ -27,6 +27,15 @@ class Trip < ApplicationRecord
 
   accepts_nested_attributes_for :places, :allow_destroy => true
 
+  def pictures
+    arr = []
+    places.each do |place|
+      arr.append(place.place_pictures)  
+    end
+    arr.flatten
+  end
+
+
   def toggle_like(user)
     if voted_on_by? user
       unliked_by user

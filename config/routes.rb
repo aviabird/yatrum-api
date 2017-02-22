@@ -34,6 +34,8 @@ Rails.application.routes.draw do
   post 'user_followers', to: 'users#get_user_followers'
   post 'user_following', to: 'users#get_user_following'
   post 'update_password', to: 'users#update_password'
+  post 'user_pictures', to: 'users#get_user_pictures'
+
 # instagram related routes
   get 'is_user_instagram_authenticated', to: 'instagram#check_user_is_instagram_authenticated'
   get 'get_user_instagram_media', to: 'instagram#get_user_instagram_media'

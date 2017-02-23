@@ -28,33 +28,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def user_signed_in?
-    current_user.present?
-  end
-  
-  # def authenticate_user!
-  #   unauthorized! unless current_user
-  # end
-  
-  # def unauthorized!
-  #   head :unauthorized
-  # end
-
-  # def current_user
-  #   @current_user
-  # end
-
-  # def set_current_user
-  #   # binding.pry
-  #   token = request.headers['Authorization'].to_s.split(' ').last
-  #   # token = params['Authorization'].try(:last)
-  #   return unless token
-  #   payload = Token.new(token)
-
-  #   @current_user = User.find(payload.user_id) if payload.valid?
-  # end
-
-
   # For storing parms and session only in 
   # production and staging envionment
   def set_raven_context

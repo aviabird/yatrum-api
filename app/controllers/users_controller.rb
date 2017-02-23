@@ -4,9 +4,8 @@ class UsersController < ApplicationController
   before_action :authenticate_request, only: [:show, :update_user_profile_media, 
                                               :add_traveller_to_user_following_list,
                                               :follow_trip_user, :auth_user, 
-                                              :update_social_links, :update_password]
-
-
+                                              :update_social_links, :update_password,
+                                              :update_user_followers, :update_user_following]
 
   # create new user
   def create
@@ -116,6 +115,26 @@ class UsersController < ApplicationController
     else 
       render json: {message: 'User not found'}, status: :not_found
     end
+  end
+
+# Refactor these methods after user reducer refactor in frontend
+
+  def update_user_followers
+    followed_id = params[:followed_id]
+    current_user.toggle_follow(followed_id)
+    id = params[:user_id]
+    user = User.find(id)
+    user_followers = user.followers
+    render json: user_followers
+  end
+
+  def update_user_following
+    followed_id = params[:followed_id]
+    current_user.toggle_follow(followed_id)
+    id = params[:user_id]
+    user = User.find(id)
+    user_following = user.following
+    render json: user_following
   end
 
   private

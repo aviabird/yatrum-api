@@ -3,7 +3,7 @@ class TripsController < ApplicationController
   
   before_action :authenticate_request,
     only: [:create, :update, :destroy, :like, :delete_comment, :add_comment]
-  before_action :set_trip, only: [:show, :update, :destroy, :like, :increase_trip_view_count]
+  before_action :set_trip, only: [:show, :update, :destroy, :like, :increase_view_count]
   before_action :sanitise_params, only: [:create, :update]
 
 
@@ -152,11 +152,10 @@ class TripsController < ApplicationController
 
   # POST /trips/increase_view_count
   def increase_view_count
-    trip = Trip.find(params[:id])
     # can also be written as
     # impressionist(trip, nil, unique: [:ip_address, user_id, etc])
 
-    impressionist(trip)
+    impressionist(@trip)
     render_success("success")
   end
 

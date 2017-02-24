@@ -47,6 +47,8 @@ module TravelApi
     config.api_only = true
     Oj.mimic_JSON()
 
+    config.action_cable.allowed_request_origins = [ENV['ALLOWED_ORIGIN']]
+
     # Rack cors code
     config.middleware.insert_before 0, Rack::Cors do
       allow do

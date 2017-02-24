@@ -22,6 +22,9 @@ class Trip < ApplicationRecord
   acts_as_taggable
   acts_as_votable
 
+  # Count Number of Impressions
+  is_impressionable counter_cache: true, unique: true
+  
   has_many :places
   belongs_to :user, required: false # http://stackoverflow.com/a/39584972/1930053
 

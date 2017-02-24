@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get 'trips/:id/comments', to: 'trips#comments'
   post 'trips/comments', to: 'trips#delete_comment'
   post 'trips/add_comments', to: 'trips#add_comment'
+  post 'trips/increase_view_count', to: 'trips#increase_view_count'
   resources :trips
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 

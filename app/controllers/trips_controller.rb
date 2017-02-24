@@ -1,8 +1,9 @@
 class TripsController < ApplicationController
   before_action :authenticate_request,
     only: [:create, :update, :destroy, :like, :delete_comment, :add_comment]
-  before_action :set_trip, only: [:show, :update, :destroy, :like]
+  before_action :set_trip, only: [:show, :update, :destroy, :like, :increase_trip_view_count]
   before_action :sanitise_params, only: [:create, :update]
+
 
   # GET /trips
   def index
@@ -21,6 +22,7 @@ class TripsController < ApplicationController
 
   # GET /trips/1
   def show
+    # count
     render json: @trip
   end
 
@@ -144,7 +146,14 @@ class TripsController < ApplicationController
       render json: "ERROR", status: :unauthorized 
     end
   end
-  
+
+  # POST /trips/increase_view_count
+  def increase_view_count
+    trip = Trip.find(params[:id])
+    impressionist(trip)
+    render_success(true)
+  end
+
   private
 
   # find total pages in pagination

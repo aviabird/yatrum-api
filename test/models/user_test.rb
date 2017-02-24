@@ -12,27 +12,6 @@
 #  instagram_profile_picture :string
 #  profile_pic               :text
 #  cover_photo               :text
-#  google                    :string
-#  facebook                  :string
-#  display_name              :string
-#  role_id                   :integer
-#  encrypted_password        :string           default(""), not null
-#  reset_password_token      :string
-#  reset_password_sent_at    :datetime
-#  remember_created_at       :datetime
-#  sign_in_count             :integer          default(0), not null
-#  current_sign_in_at        :datetime
-#  last_sign_in_at           :datetime
-#  current_sign_in_ip        :inet
-#  last_sign_in_ip           :inet
-#  facebook_url              :string
-#  twitter_url               :string
-#  instagram_url             :string
-#  website_url               :string
-#  blog_url                  :string
-#  google                    :string
-#  facebook                  :string
-#  display_name              :string
 #  role_id                   :integer
 #  encrypted_password        :string           default(""), not null
 #  reset_password_token      :string
@@ -52,7 +31,6 @@
 #  website_url               :string
 #  blog_url                  :string
 #
-
 
 require 'test_helper'
 

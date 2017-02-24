@@ -16,6 +16,7 @@
 #  cached_weighted_score   :integer          default(0)
 #  cached_weighted_total   :integer          default(0)
 #  cached_weighted_average :float            default(0.0)
+#  impressions_count       :integer          default(0)
 #
 
 class Trip < ApplicationRecord
@@ -23,7 +24,7 @@ class Trip < ApplicationRecord
   acts_as_votable
 
   # Count Number of Impressions
-  is_impressionable counter_cache: true, unique: true
+  is_impressionable :counter_cache => true, unique: true
   
   has_many :places
   belongs_to :user, required: false # http://stackoverflow.com/a/39584972/1930053

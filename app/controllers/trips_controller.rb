@@ -115,6 +115,7 @@ class TripsController < ApplicationController
       comment.merge(user: users.find{|user| user[:id] == comment["user_id"].to_i})
     end
 
+
     render json: comments
   end
 
@@ -140,7 +141,7 @@ class TripsController < ApplicationController
         }).as_json["data"]
       
       comment["user"] = custom_serializer([User.find(current_user.id)], UserSerializer).as_json[0]
-
+      broadcast(comment)
       render json: comment
     else
       render json: "ERROR", status: :unauthorized 
@@ -188,4 +189,7 @@ class TripsController < ApplicationController
     params.require(:comment).permit(:user_id, :trip_id, :message)
   end
 
+  def broadcast(comment)
+    ActionCable.server.broadcast('comments', comment.as_json.merge(action: 'CreateComments'))
+  end
 end

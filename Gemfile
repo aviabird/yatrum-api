@@ -79,6 +79,8 @@ gem 'jbuilder', '~> 2.5'
 # Http Party
 gem "httparty"
 
+gem 'newrelic_rpm'
+
 # Sentry
 gem "sentry-raven"
 

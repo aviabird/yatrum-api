@@ -129,6 +129,7 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.0.0)
     nested_form (0.3.2)
+    newrelic_rpm (3.18.1.330)
     nio4r (1.2.1)
     nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
@@ -254,6 +255,7 @@ DEPENDENCIES
   jquery-rails
   jwt
   listen (~> 3.0.5)
+  newrelic_rpm
   oj (~> 2.18.0)
   oj_mimic_json
   pg

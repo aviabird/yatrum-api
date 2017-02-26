@@ -164,7 +164,7 @@ class TripsController < ApplicationController
   # find total pages in pagination
   def find_total_pages
     trips = Trip.all.count
-    totol_pages = (trips/6).ceil 
+    totol_pages = (trips/6.0).ceil 
   end
 
   # Use callbacks to share common setup or constraints between actions.

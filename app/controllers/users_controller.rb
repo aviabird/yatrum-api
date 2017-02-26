@@ -78,13 +78,13 @@ class UsersController < ApplicationController
   end
 
   def get_user_pictures
+    offset = ((params[:page] || 1).to_i - 1) * 6
     id = params[:user_id]
-
     user = User.find(id)
-    # binding.pry
     if user.present?
-      user_pictures = user.pictures
-      render_success(user_pictures: user_pictures)    
+      user_pictures = user.pictures.limit(6).offset(offset)
+      total_pages = find_total_pages(user)
+      render json: {user_pictures: custom_serializer(user_pictures, PictureSerializer), total_pages: total_pages}
     else
       render_error("Can't Find User")
     end
@@ -138,6 +138,11 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def find_total_pages(user)
+    pictures = user.pictures.count
+    totol_pages = (pictures/6.0).ceil 
+  end
 
   def media_type
     params['mediaType'] == 'profile_pic' ? profile_pic : 'cover_photo' 

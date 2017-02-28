@@ -30,6 +30,7 @@ class TripsController < ApplicationController
 
   # POST /trips
   def create
+    binding.pry
     @trip = current_user.trips.new(trip_params)
     if @trip.save
       render json: @trip, status: :created, location: @trip
@@ -74,7 +75,7 @@ class TripsController < ApplicationController
       Trip
       .includes(:user, places: :pictures)
       .where.not(user_id: current_user.try(:id))
-      .tagged_with(params[:keywords].try(:split), any: true)
+      .tagged_with(params[:keywords])
       .order(created_at: :desc)
       .offset(page)
       .limit(10)
@@ -174,7 +175,7 @@ class TripsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def trip_params
-    params.require(:trip).permit(:id, :name, :description, :status, :start_date, :end_date, 
+    params.require(:trip).permit(:id, :name, :description, :status, :start_date, :end_date, :tag_list => [], 
       places_attributes: [:id, :name, :description, :review, :visited_date, :_destroy,
         pictures_attributes: [:id, :user_id, :description, :url, :public_id, :_destroy]
       ]

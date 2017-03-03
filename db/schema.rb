@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170224085655) do
+ActiveRecord::Schema.define(version: 20170303091217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,8 +125,8 @@ ActiveRecord::Schema.define(version: 20170224085655) do
     t.string   "name"
     t.text     "description"
     t.boolean  "status"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.integer  "user_id"
     t.integer  "cached_votes_total",      default: 0
     t.integer  "cached_votes_score",      default: 0
@@ -136,6 +136,7 @@ ActiveRecord::Schema.define(version: 20170224085655) do
     t.integer  "cached_weighted_total",   default: 0
     t.float    "cached_weighted_average", default: 0.0
     t.integer  "impressions_count",       default: 0
+    t.boolean  "approved",                default: false
     t.index ["cached_votes_down"], name: "index_trips_on_cached_votes_down", using: :btree
     t.index ["cached_votes_score"], name: "index_trips_on_cached_votes_score", using: :btree
     t.index ["cached_votes_total"], name: "index_trips_on_cached_votes_total", using: :btree

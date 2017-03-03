@@ -101,9 +101,9 @@ class UsersController < ApplicationController
   def update_password
     if current_user && current_user.valid_password?(params[:current_password])
       current_user.update(password: params[:password], password_confirmation: params[:password_confirmation])
-      render json: current_user
+      render_success("Password Updated SuccessFully")
     else
-      render json: {error: "Password update Failed"}, status: :failed
+      render_error("Password update Failed")
     end
   end
 

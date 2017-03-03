@@ -1,24 +1,14 @@
+# Destroy Prev data if any
 User.destroy_all
 Trip.destroy_all
 City.destroy_all
 Place.destroy_all
 Picture.destroy_all
 
-
-
 admin_role = Role.find_or_create_by!(name: 'admin')
 user_role = Role.find_or_create_by!(name: 'user')
 
 puts "Roles Created!"
-
-User.find_or_create_by(email: 'admin@example.com') do |user|
-  user.password = '123456'
-  user.password_confirmation = '123456'
-  user.role_id = admin_role.id
-end
-
-puts "Admin Created!"
-
 
 user = User.create!(name: 'Jack', email: 'jack@test.com', password: '1234567', password_confirmation: '1234567', role_id: user_role.id)
 tags = %w(river rafting india america mountains treking cycling swiming camping religious nature)

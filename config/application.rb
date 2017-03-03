@@ -47,6 +47,13 @@ module TravelApi
     config.api_only = true
     Oj.mimic_JSON()
 
+    # (For Devise and Rails Admin) Allow session management
+    # Read Blog: http://www.carlosramireziii.com/how-to-add-active-admin-to-a-rails-5-api-application.html
+    config.middleware.use Rack::MethodOverride
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore
+    config.middleware.use ActionDispatch::Flash
+
     config.action_cable.allowed_request_origins = [ENV['WS_STAGING_ORIGIN'],ENV['WS_PRODUCTION_ORIGIN']]
 
     # Rack cors code

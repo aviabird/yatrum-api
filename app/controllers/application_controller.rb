@@ -10,7 +10,9 @@ class ApplicationController < ActionController::Base
   # This authentication should be at the controller level
   attr_reader :current_user 
   
-  private
+  def current_user
+    @current_user
+  end
 
   def authenticate_api
     # Dirty checking for admin user.
@@ -34,4 +36,16 @@ class ApplicationController < ActionController::Base
     Raven.user_context(id: session[:current_user_id]) # or anything else in session
     Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
+
+  # Override Devise after sign in path for different user role
+  def after_sign_in_path_for(resource)
+    if current_user.admin?
+      rails_admin.dashboard_path
+    else
+      user_path(current_user)
+    end
+  end
 end
+
+
+

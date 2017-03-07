@@ -40,23 +40,24 @@ class TripViewStats
     @impressions = Trip.find(@id)
                        .impressions
                        .select('DISTINCT ON(ip_address) *')
-                       .order(:ip_address)
 
     # Impression
     # .find_by_sql("select DISTINCT ON(ip_address) * from impressions where impressionable_id = #{@id}")
   end
 
   def calc_date_range
-    @range[:start_date] = impression_date_by_order(:asc)
-    @range[:end_date]   = impression_date_by_order(:desc)
+    @range[:start_date] = impression_date_by_order(:minimum)
+    @range[:end_date]   = impression_date_by_order(:maximum)
   end
 
-  # order_type: => :asc || :desc
-  def impression_date_by_order(order_type = :asc)
-   impressions.order(created_at: order_type)
-              .limit(1)
-              .first
-              .created_at.to_date
+  # order_type: => :minimum || :maximum
+  def impression_date_by_order(order_type = :minimum)
+   # impressions.order(created_at: order_type)
+   #            .limit(1)
+   #            .first
+   #            .created_at.to_date
+
+   impressions.send(order_type, :created_at).to_date
   end
 
   # Here labels is dates and series_data is views

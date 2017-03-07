@@ -19,11 +19,11 @@ class ApplicationController < ActionController::Base
     # TODO: Need to correctly implement this
     # issue: Devise not sending user auth details in headers instead it sends in params
     # our code is implemented to check headers. hence the whole if else hack below
-    if params[:user].try(:[], :email) == "admin@example.com"
+    if params[:user].try(:[], :email) == ENV['ADMIN_EMAIL']
       # return admin user
       # TODO: must check for auth token and other stuff to decode 
       # the token and find user
-      @current_user = User.find_by(email: "admin@example.com")
+      @current_user = User.find_by(email: ENV['ADMIN_EMAIL'])
     else
       @current_user = AuthorizeApiRequest.call(request.headers).result
       Thread.current[:current_user] = @current_user
@@ -46,6 +46,4 @@ class ApplicationController < ActionController::Base
     end
   end
 end
-
-
 

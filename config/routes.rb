@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   post 'trips/comments', to: 'trips#delete_comment'
   post 'trips/add_comments', to: 'trips#add_comment'
   post 'trips/increase_view_count', to: 'trips#increase_view_count'
+  post 'graph_data_for_trip', to: 'trips#graph_data_for_trip'
   resources :trips
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
@@ -36,7 +37,6 @@ Rails.application.routes.draw do
   post 'user_pictures', to: 'users#get_user_pictures'
   post 'update_user_followers', to: 'users#update_user_followers'
   post 'update_user_following', to: 'users#update_user_following'
-
 # instagram related routes
   get 'is_user_instagram_authenticated', to: 'instagram#check_user_is_instagram_authenticated'
   get 'get_user_instagram_media', to: 'instagram#get_user_instagram_media'

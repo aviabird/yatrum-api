@@ -164,6 +164,19 @@ class TripsController < ApplicationController
     render_success("success")
   end
 
+  # POST /graph_data_for_trip
+  # Params => {id: some_trip_id}
+  def graph_data_for_trip
+    @trip_view_stats = TripViewStats.new(id: params[:id])
+    result = @trip_view_stats.call
+
+    if result[:status]
+      render_success(result)
+    else
+      render_error(result[:error])
+    end
+  end
+
   private
 
   # find total pages in pagination

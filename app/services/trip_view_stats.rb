@@ -37,7 +37,7 @@ class TripViewStats
   private
   
   def retrive_all_trip_impressions
-    @impressions = Trip.find(11)
+    @impressions = Trip.find(@id)
                        .impressions
                        .select('DISTINCT ON(ip_address) *')
                        .order(:ip_address)

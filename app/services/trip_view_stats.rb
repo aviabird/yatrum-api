@@ -37,7 +37,13 @@ class TripViewStats
   private
   
   def retrive_all_trip_impressions
-    @impressions = Trip.find(@id).impressions    
+    @impressions = Trip.find(11)
+                       .impressions
+                       .select('DISTINCT ON(ip_address) *')
+                       .order(:ip_address)
+
+    # Impression
+    # .find_by_sql("select DISTINCT ON(ip_address) * from impressions where impressionable_id = #{@id}")
   end
 
   def calc_date_range
@@ -65,7 +71,7 @@ class TripViewStats
     (index_date..@range[:end_date]).each do |idate|
       count = impressions
               .where(created_at: ((idate.at_beginning_of_day)..(idate.end_of_day)))
-              .count
+              .length
       @views.push(count)
       @dates.push(idate)
       index_date = index_date + 1.day

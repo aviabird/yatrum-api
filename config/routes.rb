@@ -1,15 +1,13 @@
 Rails.application.routes.draw do
-  
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   # get 'users/create'
-  
-  devise_for :users
-  
+
   # Made For Devise intergation 
   # TODO: Should be changed to yatrums home index
   root to: "home#index"
-
-
+  
+  devise_for :users
+  
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   get 'users/:user_id/trips', to: 'trips#get_user_trips'
   post 'trips/search', to: 'trips#search'

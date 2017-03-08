@@ -8,7 +8,7 @@ class TripViewStats
   def initialize(id: nil)
     @id = id
     @impressions = nil
-    @range = { start_date: Date.new, end_date: Date.new }
+    @range = { start_date: 30.days.ago.to_date, end_date: Date.today }
     @views = []
     @dates = []
     @result = {status: false}
@@ -20,7 +20,7 @@ class TripViewStats
       retrive_all_trip_impressions
       # TODO: Re-Think over the below if-else condition
       if impressions.present?
-        calc_date_range
+        # calc_date_range
         calc_graph_labels_and_series_data
       else
         @dates = [Trip.find(@id).created_at]

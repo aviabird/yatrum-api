@@ -167,7 +167,9 @@ class TripsController < ApplicationController
   # POST /graph_data_for_trip
   # Params => {id: some_trip_id}
   def graph_data_for_trip
-    @trip_view_stats = TripViewStats.new(id: params[:id])
+    @trip_view_stats = TripViewStats
+                        .new(id: params[:id])
+
     result = @trip_view_stats.call
 
     if result[:status]
